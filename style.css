@@ -1,16 +1,66 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-    margin:0;
-    padding:20px;
-    font-family:Arial,sans-serif;
-    background:#0f172a;
-    color:white;
-    text-align:center;
+background:#0f172a;
+color:white;
+padding:20px;
 }
 
-h1{
-    color:#22c55e;
+header{
+text-align:center;
+margin-bottom:25px;
 }
 
-p{
-    color:#cbd5e1;
+header h1{
+color:#22c55e;
+}
+
+header p{
+color:#cbd5e1;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+text-align:center;
+}
+
+.grid{
+display:grid;
+gap:15px;
+}
+
+.income{
+border-left:5px solid #22c55e;
+}
+
+.expense{
+border-left:5px solid #ef4444;
+}
+
+.investment{
+border-left:5px solid #3b82f6;
+}
+
+button{
+margin-top:10px;
+padding:10px 15px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+font-size:16px;
+cursor:pointer;
 }
