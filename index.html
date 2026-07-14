@@ -1,149 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echo Finance</title>
 
-<title>Echo Finance</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#111827">
 
-<meta name="theme-color" content="#0f172a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<header>
+<header class="header">
 
-<div class="logo">
+<h1>💰 Echo Finance</h1>
 
-💰 Echo Finance
-
-</div>
-
-<p class="subtitle">
-
-Personal Finance Tracker
-
-</p>
+<p>Premium Personal Finance Tracker</p>
 
 </header>
 
 <section class="balance-card">
 
-<h2>Total Balance</h2>
+<h3>Total Balance</h3>
 
 <h1 id="balance">₹0</h1>
 
 </section>
 
-<div class="cards">
+<section class="summary">
 
 <div class="card income">
 
-<h3>Income</h3>
+<span>Income</span>
 
 <h2 id="income">₹0</h2>
-
-<button onclick="addIncome()">
-
-+ Add Income
-
-</button>
 
 </div>
 
 <div class="card expense">
 
-<h3>Expense</h3>
+<span>Expense</span>
 
 <h2 id="expense">₹0</h2>
-
-<button onclick="addExpense()">
-
-+ Add Expense
-
-</button>
 
 </div>
 
 <div class="card investment">
 
-<h3>Investment</h3>
+<span>Investment</span>
 
 <h2 id="investment">₹0</h2>
-
-<button onclick="addInvestment()">
-
-+ Add Investment
-
-</button>
-
-</div>
-
-</div>
-
-<section class="history">
-
-<h2>
-
-Recent Transactions
-
-</h2>
-
-<ul id="historyList">
-
-<li>
-
-No Transactions Yet
-
-</li>
-
-</ul>
-
-    </section>
-    <div class="quick-actions">
-
-<h2>Quick Actions</h2>
-
-<div class="action-grid">
-
-<button class="action-btn" onclick="addIncome()">
-💰
-<span>Income</span>
-</button>
-
-<button class="action-btn" onclick="addExpense()">
-💸
-<span>Expense</span>
-</button>
-
-<button class="action-btn" onclick="addInvestment()">
-📈
-<span>Investment</span>
-</button>
-
-<button class="action-btn" onclick="resetData()">
-🗑️
-<span>Reset</span>
-</button>
 
 </div>
 
 </section>
 
-<button class="fab" onclick="openModal()">
-+
-</button>
+<section class="transactions">
+
+<div class="title-row">
+
+<h2>Recent Transactions</h2>
+
+<button id="clearBtn">Clear</button>
+
+</div>
+
+<ul id="history">
+
+<li>No Transactions Yet</li>
+</ul>
+
+</section>
+
+<button id="fab">+</button>
 
 <div id="modal" class="modal">
 
@@ -171,13 +109,15 @@ type="text"
 id="note"
 placeholder="Description">
 
-<button onclick="saveTransaction()">
+<div class="button-group">
 
-Save Transaction
+<button id="saveBtn">
+
+Save
 
 </button>
 
-<button onclick="closeModal()">
+<button id="cancelBtn">
 
 Cancel
 
@@ -187,56 +127,54 @@ Cancel
 
 </div>
 
+</div>
+
 <nav class="bottom-nav">
 
-<div class="nav-item active">
+<button class="active">
 
 🏠
 
 <span>Home</span>
 
-</div>
+</button>
 
-<div class="nav-item">
+<button>
 
 📊
 
 <span>Reports</span>
 
-</div>
+</button>
 
-<div class="nav-item">
+<button>
 
-💳
+💼
 
-<span>Wallet</span>
+<span>Portfolio</span>
 
-</div>
+</button>
 
-<div class="nav-item">
+<button>
 
 ⚙️
 
 <span>Settings</span>
 
-</div>
+</button>
 
-</nav>
+    </nav>
+    <footer class="footer">
 
-<script src="script.js"></script>
-<footer class="footer">
+<p>Echo Finance v2.0</p>
 
-<p>
-© 2026 Echo Finance
-</p>
-
-<p>
-Made with ❤️ by Echoverse Studio
-</p>
+<p>Made with ❤️ by Echoverse Studio</p>
 
 </footer>
 
 </div>
 
+<script src="script.js"></script>
+
 </body>
-    </html>
+</html>
