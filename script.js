@@ -124,33 +124,37 @@ const cancelBtn = document.getElementById("cancelBtn");
 saveBtn.addEventListener("click", saveTransaction);
 
 cancelBtn.addEventListener("click", closeModal);
-function updateDateTime() {
 
-    const now = new Date();
+window.addEventListener("DOMContentLoaded", function () {
 
-    const months = [
-        "Jan","Feb","Mar","Apr","May","Jun",
-        "Jul","Aug","Sep","Oct","Nov","Dec"
-    ];
+    function updateDateTime() {
+        const now = new Date();
 
-    const day = now.getDate();
-    const month = months[now.getMonth()];
-    const year = now.getFullYear();
+        const months = [
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sep","Oct","Nov","Dec"
+        ];
 
-    let hour = now.getHours();
-    const minute = String(now.getMinutes()).padStart(2, "0");
+        const day = now.getDate();
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
 
-    const ampm = hour >= 12 ? "PM" : "AM";
+        let hour = now.getHours();
+        const minute = String(now.getMinutes()).padStart(2, "0");
 
-    hour = hour % 12;
-    if (hour === 0) hour = 12;
+        const ampm = hour >= 12 ? "PM" : "AM";
 
-    const dateTime =
-        `📅 ${day} ${month} ${year} • 🕘 ${hour}:${minute} ${ampm}`;
+        hour = hour % 12;
+        if (hour === 0) hour = 12;
 
-    document.getElementById("liveDateTime").textContent = dateTime;
-}
+        const el = document.getElementById("liveDateTime");
 
-updateDateTime();
+        if (el) {
+            el.textContent = `📅 ${day} ${month} ${year} • 🕘 ${hour}:${minute} ${ampm}`;
+        }
+    }
 
-setInterval(updateDateTime, 1000);
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+});
