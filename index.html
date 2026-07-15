@@ -155,12 +155,9 @@ Cancel
 
 </button>
 
-<button>
-
-⚙️
-
-<span>Settings</span>
-
+<button id="settingsBtn">
+    ⚙️
+    <span>Settings</span>
 </button>
 
     </nav>
@@ -181,6 +178,9 @@ window.addEventListener("DOMContentLoaded", function () {
   const reportsBtn = document.getElementById("reportsBtn");
   const reportModal = document.getElementById("reportModal");
   const closeReport = document.getElementById("closeReport");
+  const settingsBtn = document.getElementById("settingsBtn");
+const settingsModal = document.getElementById("settingsModal");
+const closeSettings = document.getElementById("closeSettings");
 
   if(reportsBtn){
     reportsBtn.onclick = function(){
@@ -206,7 +206,19 @@ window.addEventListener("DOMContentLoaded", function () {
       reportModal.style.display = "none";
     };
   }
+  
+if(settingsBtn){
+  settingsBtn.onclick = function(){
+    settingsModal.style.display = "flex";
+  };
+}
 
+if(closeSettings){
+  closeSettings.onclick = function(){
+    settingsModal.style.display = "none";
+  };
+                        }
+  
 });
 </script>
 
@@ -225,6 +237,26 @@ window.addEventListener("DOMContentLoaded", function () {
   </div>
 
 </div>
+<div id="settingsModal" class="modal">
 
+  <div class="modal-content">
+
+    <h2>⚙️ Settings</h2>
+
+    <p>👤 Profile : Echo User</p>
+
+    <p>💱 Currency : ₹ INR</p>
+
+    <p>🌙 Theme : Dark</p>
+
+    <p>📦 Backup & Restore (Coming Soon)</p>
+
+    <p>🔒 PIN Lock (Coming Soon)</p>
+
+    <button id="closeSettings">Close</button>
+
+  </div>
+
+  </div>
 </body>
   </html>
