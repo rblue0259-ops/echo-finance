@@ -1,45 +1,104 @@
-let income = Number(localStorage.getItem("income")) || 0;
-let expense = Number(localStorage.getItem("expense")) || 0;
-let investment = Number(localStorage.getItem("investment")) || 0;
+let income = 0;
+let expense = 0;
+let investment = 0;
+let transactions = [];
 
-function save() {
+const balanceEl = document.getElementById("balance");
+const incomeEl = document.getElementById("income");
+const expenseEl = document.getElementById("expense");
+const investmentEl = document.getElementById("investment");
+const historyEl = document.getElementById("history");
+
+function loadData() {
+  income = Number(localStorage.getItem("income")) || 0;
+  expense = Number(localStorage.getItem("expense")) || 0;
+  investment = Number(localStorage.getItem("investment")) || 0;
+  transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+  updateUI();
+}
+
+function saveData() {
   localStorage.setItem("income", income);
   localStorage.setItem("expense", expense);
   localStorage.setItem("investment", investment);
+  localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
-function update() {
-  document.getElementById("income").innerHTML = "₹" + income;
-  document.getElementById("expense").innerHTML = "₹" + expense;
-  document.getElementById("investment").innerHTML = "₹" + investment;
-  document.getElementById("balance").innerHTML =
-    "₹" + (income - expense - investment);
+function updateUI() {
+  incomeEl.textContent = "₹" + income;
+  expenseEl.textContent = "₹" + expense;
+  investmentEl.textContent = "₹" + investment;
+  balanceEl.textContent = "₹" + (income - expense - investment);
 
-  save();
-}
+  historyEl.innerHTML = "";
 
-function addIncome() {
-  let amount = prompt("Enter Income");
-  if (amount && !isNaN(amount)) {
-    income += Number(amount);
-    update();
+  if (transactions.length === 0) {
+    historyEl.innerHTML = "<li>No Transactions Yet</li>";
+    return;
   }
+
+  transactions.slice().reverse().forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent =
+      item.type.toUpperCase() + " • ₹" + item.amount + " • " + item.note;
+    historyEl.appendChild(li);
+  });
 }
 
-function addExpense() {
-  let amount = prompt("Enter Expense");
-  if (amount && !isNaN(amount)) {
-    expense += Number(amount);
-    update();
+function addTransaction(type, amount, note) {
+  amount = Number(amount);
+
+  if (!amount || amount <= 0) return;
+
+  if (type === "income") income += amount;
+  if (type === "expense") expense += amount;
+  if (type === "investment") investment += amount;
+
+  transactions.push({
+    type,
+    amount,
+    note
+  });
+
+  saveData();
+  updateUI();
+}
+
+const fab = document.getElementById("fab");
+const modal = document.getElementById("modal");
+const saveBtn = document.getElementById("saveBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+
+fab.onclick = () => {
+  modal.style.display = "flex";
+};
+
+cancelBtn.onclick = () => {
+  modal.style.display = "none";
+};
+
+saveBtn.onclick = () => {
+  const amount = document.getElementById("amount").value;
+  const type = document.getElementById("type").value;
+  const note = document.getElementById("note").value || "No Note";
+
+  addTransaction(type, amount, note);
+
+  document.getElementById("amount").value = "";
+  document.getElementById("note").value = "";
+
+  modal.style.display = "none";
+};
+
+document.getElementById("clearBtn").onclick = () => {
+  if (confirm("Clear all data?")) {
+    income = 0;
+    expense = 0;
+    investment = 0;
+    transactions = [];
+    saveData();
+    updateUI();
   }
-}
+};
 
-function addInvestment() {
-  let amount = prompt("Enter Investment");
-  if (amount && !isNaN(amount)) {
-    investment += Number(amount);
-    update();
-  }
-}
-
-update();
+loadData();
