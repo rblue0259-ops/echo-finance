@@ -181,6 +181,10 @@ window.addEventListener("DOMContentLoaded", function () {
   const settingsBtn = document.getElementById("settingsBtn");
 const settingsModal = document.getElementById("settingsModal");
 const closeSettings = document.getElementById("closeSettings");
+  const manualEditBtn = document.getElementById("manualEditBtn");
+const manualEditModal = document.getElementById("manualEditModal");
+const closeManualEdit = document.getElementById("closeManualEdit");
+const currentMonth = document.getElementById("currentMonth");
 
   if(reportsBtn){
     reportsBtn.onclick = function(){
@@ -218,7 +222,51 @@ if(closeSettings){
     settingsModal.style.display = "none";
   };
                         }
-  
+if (manualEditBtn) {
+
+    manualEditBtn.onclick = function () {
+
+        const now = new Date();
+
+        const months = [
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sep","Oct","Nov","Dec"
+        ];
+
+        currentMonth.innerText =
+            "Current Month : " +
+            months[now.getMonth()] + " " + now.getFullYear();
+
+        manualEditModal.style.display = "flex";
+    };
+
+}
+
+if (closeManualEdit) {
+
+    closeManualEdit.onclick = function () {
+
+        manualEditModal.style.display = "none";
+
+    };
+
+  }
+ const saveManualEdit = document.getElementById("saveManualEdit");
+
+if (saveManualEdit) {
+    saveManualEdit.onclick = function () {
+
+        income = Number(document.getElementById("editIncome").value);
+        expense = Number(document.getElementById("editExpense").value);
+        investment = Number(document.getElementById("editInvestment").value);
+
+        updateUI();
+
+        manualEditModal.style.display = "none";
+
+        alert("✅ Finance Data Updated Successfully");
+    };
+  } 
 });
 </script>
 
