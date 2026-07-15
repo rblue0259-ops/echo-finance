@@ -1,104 +1,95 @@
-let income = 0;
-let expense = 0;
-let investment = 0;
-let transactions = [];
+let income = 10000;
+let expense = 200;
+let investment = 500;
 
-const balanceEl = document.getElementById("balance");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
 const investmentEl = document.getElementById("investment");
-const historyEl = document.getElementById("history");
+const balanceEl = document.getElementById("balance");
+const historyList = document.getElementById("historyList");
 
-function loadData() {
-  income = Number(localStorage.getItem("income")) || 0;
-  expense = Number(localStorage.getItem("expense")) || 0;
-  investment = Number(localStorage.getItem("investment")) || 0;
-  transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+function updateUI() {
+  const balance = income - expense - investment;
+
+  incomeEl.textContent = "₹" + income;
+  expenseEl.textContent = "₹" + expense;
+  investmentEl.textContent = "₹" + investment;
+  balanceEl.textContent = "₹" + balance;
+}
+
+function addHistory(text) {
+  if (historyList.innerHTML.includes("No Transactions Yet")) {
+    historyList.innerHTML = "";
+  }
+
+  const li = document.createElement("li");
+  li.textContent = text;
+  historyList.prepend(li);
+}
+function addIncome() {
+  const amount = Number(prompt("Enter Income Amount"));
+
+  if (!amount || amount <= 0) return;
+
+  income += amount;
+  addHistory("💰 Income +₹" + amount);
   updateUI();
 }
 
+function addExpense() {
+  const amount = Number(prompt("Enter Expense Amount"));
+
+  if (!amount || amount <= 0) return;
+
+  expense += amount;
+  addHistory("💸 Expense -₹" + amount);
+  updateUI();
+}
+
+function addInvestment() {
+  const amount = Number(prompt("Enter Investment Amount"));
+
+  if (!amount || amount <= 0) return;
+
+  investment += amount;
+  addHistory("📈 Investment +₹" + amount);
+  updateUI();
+}
+
+updateUI();
+// Save Data
 function saveData() {
   localStorage.setItem("income", income);
   localStorage.setItem("expense", expense);
   localStorage.setItem("investment", investment);
-  localStorage.setItem("transactions", JSON.stringify(transactions));
+  localStorage.setItem("history", historyList.innerHTML);
 }
 
-function updateUI() {
-  incomeEl.textContent = "₹" + income;
-  expenseEl.textContent = "₹" + expense;
-  investmentEl.textContent = "₹" + investment;
-  balanceEl.textContent = "₹" + (income - expense - investment);
-
-  historyEl.innerHTML = "";
-
-  if (transactions.length === 0) {
-    historyEl.innerHTML = "<li>No Transactions Yet</li>";
-    return;
+// Load Data
+function loadData() {
+  if (localStorage.getItem("income")) {
+    income = Number(localStorage.getItem("income"));
+    expense = Number(localStorage.getItem("expense"));
+    investment = Number(localStorage.getItem("investment"));
+    historyList.innerHTML = localStorage.getItem("history");
   }
 
-  transactions.slice().reverse().forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent =
-      item.type.toUpperCase() + " • ₹" + item.amount + " • " + item.note;
-    historyEl.appendChild(li);
-  });
-}
-
-function addTransaction(type, amount, note) {
-  amount = Number(amount);
-
-  if (!amount || amount <= 0) return;
-
-  if (type === "income") income += amount;
-  if (type === "expense") expense += amount;
-  if (type === "investment") investment += amount;
-
-  transactions.push({
-    type,
-    amount,
-    note
-  });
-
-  saveData();
   updateUI();
 }
 
-const fab = document.getElementById("fab");
-const modal = document.getElementById("modal");
-const saveBtn = document.getElementById("saveBtn");
-const cancelBtn = document.getElementById("cancelBtn");
-
-fab.onclick = () => {
-  modal.style.display = "flex";
+// Auto Save Every Update
+const oldUpdateUI = updateUI;
+updateUI = function () {
+  oldUpdateUI();
+  saveData();
 };
 
-cancelBtn.onclick = () => {
-  modal.style.display = "none";
-};
-
-saveBtn.onclick = () => {
-  const amount = document.getElementById("amount").value;
-  const type = document.getElementById("type").value;
-  const note = document.getElementById("note").value || "No Note";
-
-  addTransaction(type, amount, note);
-
-  document.getElementById("amount").value = "";
-  document.getElementById("note").value = "";
-
-  modal.style.display = "none";
-};
-
-document.getElementById("clearBtn").onclick = () => {
-  if (confirm("Clear all data?")) {
-    income = 0;
-    expense = 0;
-    investment = 0;
-    transactions = [];
-    saveData();
-    updateUI();
-  }
-};
-
+// Load when app starts
 loadData();
+
+// Register Service Worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js");
+  });
+}
