@@ -139,7 +139,7 @@ Cancel
 
 </button>
 
-<button>
+<button id="reportsBtn">
 
 📊
 
@@ -175,6 +175,18 @@ Cancel
 </div>
 
 <script src="script.js"></script>
+<div id="reportModal" class="modal">
+  <div class="modal-content">
+    <h2>Finance Report</h2>
 
+    <p>Total Income: <span id="rIncome">₹0</span></p>
+    <p>Total Expense: <span id="rExpense">₹0</span></p>
+    <p>Total Investment: <span id="rInvestment">₹0</span></p>
+    <p><b>Balance: <span id="rBalance">₹0</span></b></p>
+
+    <button id="closeReport">Close</button>
+  </div>
+  </div>
+  
 </body>
 </html>
