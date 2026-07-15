@@ -173,20 +173,58 @@ Cancel
 </footer>
 
 </div>
-
-<script src="script.js"></script>
-<div id="reportModal" class="modal">
-  <div class="modal-content">
-    <h2>Finance Report</h2>
-
-    <p>Total Income: <span id="rIncome">₹0</span></p>
-    <p>Total Expense: <span id="rExpense">₹0</span></p>
-    <p>Total Investment: <span id="rInvestment">₹0</span></p>
-    <p><b>Balance: <span id="rBalance">₹0</span></b></p>
-
-    <button id="closeReport">Close</button>
-  </div>
-  </div>
   
+<script src="script.js"></script>
+<script>
+window.addEventListener("DOMContentLoaded", function () {
+
+  const reportsBtn = document.getElementById("reportsBtn");
+  const reportModal = document.getElementById("reportModal");
+  const closeReport = document.getElementById("closeReport");
+
+  if(reportsBtn){
+    reportsBtn.onclick = function(){
+
+      document.getElementById("rIncome").innerText =
+      document.getElementById("income").innerText;
+
+      document.getElementById("rExpense").innerText =
+      document.getElementById("expense").innerText;
+
+      document.getElementById("rInvestment").innerText =
+      document.getElementById("investment").innerText;
+
+      document.getElementById("rBalance").innerText =
+      document.getElementById("balance").innerText;
+
+      reportModal.style.display = "flex";
+    };
+  }
+
+  if(closeReport){
+    closeReport.onclick = function(){
+      reportModal.style.display = "none";
+    };
+  }
+
+});
+</script>
+
+<div id="reportModal" class="modal">
+
+<div class="modal-content">
+  <h2>Finance Report</h2>
+
+  <p>Total Income: <span id="rIncome">₹0</span></p>
+  <p>Total Expense: <span id="rExpense">₹0</span></p>
+  <p>Total Investment: <span id="rInvestment">₹0</span></p>
+  <p><b>Balance: <span id="rBalance">₹0</span></b></p>
+
+  <button id="closeReport">Close</button>
+</div>
+  </div>
+
+</div>
+
 </body>
-</html>
+  </html>
