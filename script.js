@@ -124,3 +124,33 @@ const cancelBtn = document.getElementById("cancelBtn");
 saveBtn.addEventListener("click", saveTransaction);
 
 cancelBtn.addEventListener("click", closeModal);
+function updateDateTime() {
+
+    const now = new Date();
+
+    const months = [
+        "Jan","Feb","Mar","Apr","May","Jun",
+        "Jul","Aug","Sep","Oct","Nov","Dec"
+    ];
+
+    const day = now.getDate();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+
+    let hour = now.getHours();
+    const minute = String(now.getMinutes()).padStart(2, "0");
+
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    hour = hour % 12;
+    if (hour === 0) hour = 12;
+
+    const dateTime =
+        `📅 ${day} ${month} ${year} • 🕘 ${hour}:${minute} ${ampm}`;
+
+    document.getElementById("liveDateTime").textContent = dateTime;
+}
+
+updateDateTime();
+
+setInterval(updateDateTime, 1000);
