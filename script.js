@@ -122,4 +122,5 @@ const saveBtn = document.getElementById("saveBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 
 saveBtn.addEventListener("click", saveTransaction);
+
 cancelBtn.addEventListener("click", closeModal);
