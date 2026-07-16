@@ -89,6 +89,7 @@ function getCurrentMonthKey() {
     const now = new Date();
     return now.getFullYear() + "-" + (now.getMonth() + 1);
 }
+const currentMonthKey = getCurrentMonthKey();
 
 const currentMonth = document.getElementById("currentMonth");
 const editStatus = document.getElementById("editStatus");
@@ -143,10 +144,68 @@ loadData();
 updateUI();
 const saveBtn = document.getElementById("saveBtn");
 const cancelBtn = document.getElementById("cancelBtn");
+const manualEditBtn = document.getElementById("manualEditBtn");
+const manualEditModal = document.getElementById("manualEditModal");
+const closeManualEdit = document.getElementById("closeManualEdit");
+const saveManualEdit = document.getElementById("saveManualEdit");
+
+const editIncome = document.getElementById("editIncome");
+const editExpense = document.getElementById("editExpense");
+const editInvestment = document.getElementById("editInvestment");
+const editReason = document.getElementById("editReason");
 
 saveBtn.addEventListener("click", saveTransaction);
 
 cancelBtn.addEventListener("click", closeModal);
+
+if (manualEditBtn) {
+
+    manualEditBtn.addEventListener("click", () => {
+
+        editIncome.value = income;
+        editExpense.value = expense;
+        editInvestment.value = investment;
+
+        const now = new Date();
+
+        const months = [
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sep","Oct","Nov","Dec"
+        ];
+
+        currentMonth.textContent =
+            "📅 Current Month : " +
+            months[now.getMonth()] +
+            " " +
+            now.getFullYear();
+
+        manualEditModal.style.display = "flex";
+
+    });
+
+}
+
+closeManualEdit.addEventListener("click", () => {
+
+    manualEditModal.style.display = "none";
+
+});
+
+saveManualEdit.addEventListener("click", () => {
+
+    income = Number(editIncome.value);
+
+    expense = Number(editExpense.value);
+
+    investment = Number(editInvestment.value);
+
+    updateUI();
+
+    manualEditModal.style.display = "none";
+
+    alert("✅ Finance Updated Successfully");
+
+});
 
 window.addEventListener("DOMContentLoaded", function () {
 
