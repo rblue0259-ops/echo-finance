@@ -94,11 +94,12 @@ const currentMonthKey = getCurrentMonthKey();
 
 function saveData() {
     const data = {
-        income,
-        expense,
-        investment,
-        history: history.innerHTML
-    };
+    month: currentMonthKey,
+    income,
+    expense,
+    investment,
+    history: history.innerHTML
+};
 
     localStorage.setItem("echoFinanceData", JSON.stringify(data));
 }
