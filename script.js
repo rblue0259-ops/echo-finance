@@ -85,6 +85,13 @@ if (clearBtn) {
     });
 }
 
+function getCurrentMonthKey() {
+    const now = new Date();
+    return now.getFullYear() + "-" + (now.getMonth() + 1);
+}
+
+const currentMonthKey = getCurrentMonthKey();
+
 function saveData() {
     const data = {
         income,
