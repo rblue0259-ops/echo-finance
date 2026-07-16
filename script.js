@@ -141,10 +141,9 @@ updateUI = function () {
     saveData();
 };
 
-loadData();
-updateUI();
 const saveBtn = document.getElementById("saveBtn");
 const cancelBtn = document.getElementById("cancelBtn");
+
 const manualEditBtn = document.getElementById("manualEditBtn");
 const manualEditModal = document.getElementById("manualEditModal");
 const closeManualEdit = document.getElementById("closeManualEdit");
@@ -155,6 +154,8 @@ const editExpense = document.getElementById("editExpense");
 const editInvestment = document.getElementById("editInvestment");
 const editReason = document.getElementById("editReason");
 
+loadData();
+updateUI();
 saveBtn.addEventListener("click", saveTransaction);
 
 cancelBtn.addEventListener("click", closeModal);
@@ -186,11 +187,16 @@ if (manualEditBtn) {
 
 }
 
-closeManualEdit.addEventListener("click", () => {
+if (closeManualEdit) {
 
-    manualEditModal.style.display = "none";
+    closeManualEdit.addEventListener("click", () => {
 
-});
+        manualEditModal.style.display = "none";
+
+    });
+
+}
+if (saveManualEdit) {
 
 saveManualEdit.addEventListener("click", () => {
 
@@ -241,3 +247,5 @@ window.addEventListener("DOMContentLoaded", function () {
     setInterval(updateDateTime, 1000);
 
 });
+
+}
