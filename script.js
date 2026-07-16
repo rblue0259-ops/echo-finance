@@ -90,8 +90,8 @@ function getCurrentMonthKey() {
     return now.getFullYear() + "-" + (now.getMonth() + 1);
 }
 
-const currentMonthKey = getCurrentMonthKey();
-
+const currentMonth = document.getElementById("currentMonth");
+const editStatus = document.getElementById("editStatus");
 function saveData() {
     const data = {
     month: currentMonthKey,
@@ -108,6 +108,21 @@ function loadData() {
     const data = JSON.parse(localStorage.getItem("echoFinanceData"));
 
     if (!data) return;
+
+    if (data.month && data.month !== currentMonthKey) {
+
+    manualEditBtn.disabled = true;
+    manualEditBtn.style.opacity = "0.5";
+    manualEditBtn.style.cursor = "not-allowed";
+
+    editStatus.innerText = "🔒 Previous Month Locked";
+
+} else {
+
+    manualEditBtn.disabled = false;
+
+    editStatus.innerText = "✅ Current Month Editable";
+}
 
     income = data.income;
     expense = data.expense;
