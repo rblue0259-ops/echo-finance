@@ -214,24 +214,23 @@ if (closeManualEdit) {
 }
 if (saveManualEdit) {
 
-saveManualEdit.addEventListener("click", () => {
+    saveManualEdit.addEventListener("click", () => {
 
-    income = Number(editIncome.value);
+        income = Number(editIncome.value);
+        expense = Number(editExpense.value);
+        investment = Number(editInvestment.value);
 
-    expense = Number(editExpense.value);
+        updateUI();
 
-    investment = Number(editInvestment.value);
+        manualEditModal.style.display = "none";
 
-    updateUI();
+        alert("✅ Finance Updated Successfully");
 
-    manualEditModal.style.display = "none";
+    });
 
-    alert("✅ Finance Updated Successfully");
-
-});
+}
 
 window.addEventListener("DOMContentLoaded", function () {
-
     function updateDateTime() {
         const now = new Date();
 
