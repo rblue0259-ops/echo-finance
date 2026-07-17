@@ -79,9 +79,25 @@ const clearBtn = document.getElementById("clearBtn");
 
 if (clearBtn) {
     clearBtn.addEventListener("click", () => {
+
+        income = 0;
+        expense = 0;
+        investment = 0;
+
         history.innerHTML = "<li>No Transactions Yet</li>";
 
-        localStorage.removeItem("echoFinanceData");
+        localStorage.setItem("echoFinanceData", JSON.stringify({
+            month: currentMonthKey,
+            income: 0,
+            expense: 0,
+            investment: 0,
+            history: "<li>No Transactions Yet</li>"
+        }));
+
+        updateUI();
+
+        alert("✅ All Finance Data Cleared");
+
     });
 }
 
