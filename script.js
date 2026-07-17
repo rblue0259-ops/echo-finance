@@ -79,25 +79,9 @@ const clearBtn = document.getElementById("clearBtn");
 
 if (clearBtn) {
     clearBtn.addEventListener("click", () => {
-
-        income = 0;
-        expense = 0;
-        investment = 0;
-
         history.innerHTML = "<li>No Transactions Yet</li>";
 
-        localStorage.setItem("echoFinanceData", JSON.stringify({
-            month: currentMonthKey,
-            income: 0,
-            expense: 0,
-            investment: 0,
-            history: "<li>No Transactions Yet</li>"
-        }));
-
-        updateUI();
-
-        alert("✅ All Finance Data Cleared");
-
+        localStorage.removeItem("echoFinanceData");
     });
 }
 
@@ -157,9 +141,10 @@ updateUI = function () {
     saveData();
 };
 
+loadData();
+updateUI();
 const saveBtn = document.getElementById("saveBtn");
 const cancelBtn = document.getElementById("cancelBtn");
-
 const manualEditBtn = document.getElementById("manualEditBtn");
 const manualEditModal = document.getElementById("manualEditModal");
 const closeManualEdit = document.getElementById("closeManualEdit");
@@ -170,8 +155,6 @@ const editExpense = document.getElementById("editExpense");
 const editInvestment = document.getElementById("editInvestment");
 const editReason = document.getElementById("editReason");
 
-loadData();
-updateUI();
 saveBtn.addEventListener("click", saveTransaction);
 
 cancelBtn.addEventListener("click", closeModal);
@@ -203,34 +186,30 @@ if (manualEditBtn) {
 
 }
 
-if (closeManualEdit) {
+closeManualEdit.addEventListener("click", () => {
 
-    closeManualEdit.addEventListener("click", () => {
+    manualEditModal.style.display = "none";
 
-        manualEditModal.style.display = "none";
+});
 
-    });
+saveManualEdit.addEventListener("click", () => {
 
-}
-if (saveManualEdit) {
+    income = Number(editIncome.value);
 
-    saveManualEdit.addEventListener("click", () => {
+    expense = Number(editExpense.value);
 
-        income = Number(editIncome.value);
-        expense = Number(editExpense.value);
-        investment = Number(editInvestment.value);
+    investment = Number(editInvestment.value);
 
-        updateUI();
+    updateUI();
 
-        manualEditModal.style.display = "none";
+    manualEditModal.style.display = "none";
 
-        alert("✅ Finance Updated Successfully");
+    alert("✅ Finance Updated Successfully");
 
-    });
-
-}
+});
 
 window.addEventListener("DOMContentLoaded", function () {
+
     function updateDateTime() {
         const now = new Date();
 
@@ -262,5 +241,3 @@ window.addEventListener("DOMContentLoaded", function () {
     setInterval(updateDateTime, 1000);
 
 });
-
-}
