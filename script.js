@@ -1,243 +1,450 @@
-let income = 10000;
-let expense = 200;
-let investment = 500;
+// ========================================
+// Echo Finance v3.0
+// Premium Script
+// Part 1
+// ========================================
+
+let income = 0;
+let expense = 0;
+let investment = 0;
+
+let transactions = [];
+let budget = 0;
+
+// ---------- Dashboard ----------
 
 const balance = document.getElementById("balance");
-const incomeBox = document.getElementById("income");
-const expenseBox = document.getElementById("expense");
-const investmentBox = document.getElementById("investment");
+const incomeText = document.getElementById("income");
+const expenseText = document.getElementById("expense");
+const investmentText = document.getElementById("investment");
 
 const history = document.getElementById("history");
 
+// ---------- Buttons ----------
+
 const fab = document.getElementById("fab");
-const modal = document.getElementById("modal");
 
-const amount = document.getElementById("amount");
-const type = document.getElementById("type");
-const note = document.getElementById("note");
+const transactionModal =
+document.getElementById("transactionModal");
 
-function updateUI() {
-    balance.textContent = "₹" + (income - expense - investment);
-    incomeBox.textContent = "₹" + income;
-    expenseBox.textContent = "₹" + expense;
-    investmentBox.textContent = "₹" + investment;
+const closeTransaction =
+document.getElementById("closeTransaction");
+
+const saveTransaction =
+document.getElementById("saveTransaction");
+
+const amount =
+document.getElementById("amount");
+
+const note =
+document.getElementById("note");
+
+const transactionType =
+document.getElementById("transactionType");
+
+// ---------- Update Dashboard ----------
+
+function updateDashboard(){
+
+const total =
+income-expense-investment;
+
+balance.innerHTML="₹"+total;
+
+incomeText.innerHTML="₹"+income;
+
+expenseText.innerHTML="₹"+expense;
+
+investmentText.innerHTML="₹"+investment;
+
+saveLocal();
+
 }
 
-function addHistory(text) {
-    if (history.innerHTML.includes("No Transactions Yet")) {
-        history.innerHTML = "";
-    }
+// ---------- Date Time ----------
 
-    const li = document.createElement("li");
-    li.textContent = text;
-    history.prepend(li);
+function updateDateTime(){
+
+const now=new Date();
+
+document.getElementById("liveDateTime").innerHTML=
+
+now.toLocaleString();
+
 }
 
-updateUI();
-fab.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
+setInterval(updateDateTime,1000);
 
-function closeModal() {
-    modal.style.display = "none";
-    amount.value = "";
-    note.value = "";
+updateDateTime();
+
+// ---------- Open Modal ----------
+
+fab.onclick=function(){
+
+transactionModal.style.display="flex";
+
 }
 
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        closeModal();
-    }
-});
+// ---------- Close Modal ----------
 
-function saveTransaction() {
+closeTransaction.onclick=function(){
+
+transactionModal.style.display="none";
+
+amount.value="";
+
+note.value="";
+
+}
+
+// ========================================
+// Echo Finance v3.0
+// Premium Script
+// Part 2
+// ========================================
+
+// ---------- Save Transaction ----------
+
+saveTransaction.onclick = function () {
+
     const value = Number(amount.value);
 
-    if (!value || value <= 0) {
-        alert("Please enter a valid amount");
+    if (value <= 0) {
+        alert("Please enter a valid amount.");
         return;
     }
 
-    const category = type.value;
-    const description = note.value || "No Note";
+    const type = transactionType.value;
 
-    if (category === "income") {
-        income += value;
-        addHistory("💰 +" + value + " • " + description);
-    } else if (category === "expense") {
-        expense += value;
-        addHistory("💸 -" + value + " • " + description);
-    } else {
-        investment += value;
-        addHistory("📈 +" + value + " • " + description);
-    }
+    const description =
+        note.value.trim() || "No Description";
 
-    updateUI();
-    closeModal();
-    }
-const clearBtn = document.getElementById("clearBtn");
-
-if (clearBtn) {
-    clearBtn.addEventListener("click", () => {
-        history.innerHTML = "<li>No Transactions Yet</li>";
-
-        localStorage.removeItem("echoFinanceData");
-    });
-}
-
-function getCurrentMonthKey() {
-    const now = new Date();
-    return now.getFullYear() + "-" + (now.getMonth() + 1);
-}
-const currentMonthKey = getCurrentMonthKey();
-
-
-const currentMonth = document.getElementById("currentMonth");
-const editStatus = document.getElementById("editStatus");
-function saveData() {
     const data = {
-    month: currentMonthKey,
-    income,
-    expense,
-    investment,
-    history: history.innerHTML
+
+        id: Date.now(),
+
+        type: type,
+
+        amount: value,
+
+        note: description,
+
+        date: new Date().toLocaleString()
+
+    };
+
+    transactions.unshift(data);
+
+    if (type === "income") {
+
+        income += value;
+
+    }
+
+    else if (type === "expense") {
+
+        expense += value;
+
+    }
+
+    else {
+
+        investment += value;
+
+    }
+
+    renderTransactions();
+
+    updateDashboard();
+
+    transactionModal.style.display = "none";
+
+    amount.value = "";
+
+    note.value = "";
+
+    showToast("Transaction Added");
+
 };
 
-    localStorage.setItem("echoFinanceData", JSON.stringify(data));
-}
+// ---------- Transaction History ----------
 
-function loadData() {
-    const data = JSON.parse(localStorage.getItem("echoFinanceData"));
+function renderTransactions() {
 
-    if (!data) return;
+    history.innerHTML = "";
 
-    if (data.month && data.month !== currentMonthKey) {
+    if (transactions.length === 0) {
 
-    manualEditBtn.disabled = true;
-    manualEditBtn.style.opacity = "0.5";
-    manualEditBtn.style.cursor = "not-allowed";
+        history.innerHTML =
+            "<li class='empty'>No Transactions Yet</li>";
 
-    editStatus.innerText = "🔒 Previous Month Locked";
+        return;
 
-} else {
+    }
 
-    manualEditBtn.disabled = false;
+    transactions.forEach(function (item) {
 
-    editStatus.innerText = "✅ Current Month Editable";
-}
+        const li = document.createElement("li");
 
-    income = data.income;
-    expense = data.expense;
-    investment = data.investment;
-    history.innerHTML = data.history;
+        li.innerHTML = `
 
-    updateUI();
-}
+<b>${item.type.toUpperCase()}</b>
 
-const oldUpdateUI = updateUI;
+<span>₹${item.amount}</span>
 
-updateUI = function () {
-    oldUpdateUI();
-    saveData();
-};
+<br>
 
-loadData();
-updateUI();
-const saveBtn = document.getElementById("saveBtn");
-const cancelBtn = document.getElementById("cancelBtn");
-const manualEditBtn = document.getElementById("manualEditBtn");
-const manualEditModal = document.getElementById("manualEditModal");
-const closeManualEdit = document.getElementById("closeManualEdit");
-const saveManualEdit = document.getElementById("saveManualEdit");
+<small>${item.note}</small>
 
-const editIncome = document.getElementById("editIncome");
-const editExpense = document.getElementById("editExpense");
-const editInvestment = document.getElementById("editInvestment");
-const editReason = document.getElementById("editReason");
+<br>
 
-saveBtn.addEventListener("click", saveTransaction);
+<small>${item.date}</small>
 
-cancelBtn.addEventListener("click", closeModal);
+`;
 
-if (manualEditBtn) {
-
-    manualEditBtn.addEventListener("click", () => {
-
-        editIncome.value = income;
-        editExpense.value = expense;
-        editInvestment.value = investment;
-
-        const now = new Date();
-
-        const months = [
-            "Jan","Feb","Mar","Apr","May","Jun",
-            "Jul","Aug","Sep","Oct","Nov","Dec"
-        ];
-
-        currentMonth.textContent =
-            "📅 Current Month : " +
-            months[now.getMonth()] +
-            " " +
-            now.getFullYear();
-
-        manualEditModal.style.display = "flex";
+        history.appendChild(li);
 
     });
 
 }
 
-closeManualEdit.addEventListener("click", () => {
+// ---------- Local Storage ----------
 
-    manualEditModal.style.display = "none";
+function saveLocal() {
 
-});
+    const finance = {
 
-saveManualEdit.addEventListener("click", () => {
+        income,
 
-    income = Number(editIncome.value);
+        expense,
 
-    expense = Number(editExpense.value);
+        investment,
 
-    investment = Number(editInvestment.value);
+        budget,
 
-    updateUI();
+        transactions
 
-    manualEditModal.style.display = "none";
+    };
 
-    alert("✅ Finance Updated Successfully");
+    localStorage.setItem(
 
-});
+        "echoFinance",
 
-window.addEventListener("DOMContentLoaded", function () {
+        JSON.stringify(finance)
 
-    function updateDateTime() {
-        const now = new Date();
+    );
 
-        const months = [
-            "Jan","Feb","Mar","Apr","May","Jun",
-            "Jul","Aug","Sep","Oct","Nov","Dec"
-        ];
+}
 
-        const day = now.getDate();
-        const month = months[now.getMonth()];
-        const year = now.getFullYear();
+function loadLocal() {
 
-        let hour = now.getHours();
-        const minute = String(now.getMinutes()).padStart(2, "0");
+    const finance = JSON.parse(
 
-        const ampm = hour >= 12 ? "PM" : "AM";
+        localStorage.getItem("echoFinance")
 
-        hour = hour % 12;
-        if (hour === 0) hour = 12;
+    );
 
-        const el = document.getElementById("liveDateTime");
+    if (!finance) return;
 
-        if (el) {
-            el.textContent = `📅 ${day} ${month} ${year} • 🕘 ${hour}:${minute} ${ampm}`;
-        }
+    income = finance.income || 0;
+
+    expense = finance.expense || 0;
+
+    investment = finance.investment || 0;
+
+    budget = finance.budget || 0;
+
+    transactions = finance.transactions || [];
+
+    updateDashboard();
+
+    renderTransactions();
+
+}
+
+loadLocal();
+
+// ========================================
+// Echo Finance v3.0
+// Premium Script
+// Part 3
+// Reports • Budget • Settings • Manual Edit
+// ========================================
+
+// ---------- Reports ----------
+
+const reportBtn = document.getElementById("reportBtn");
+const reportModal = document.getElementById("reportModal");
+const closeReport = document.getElementById("closeReport");
+
+const reportIncome =
+document.getElementById("reportIncome");
+
+const reportExpense =
+document.getElementById("reportExpense");
+
+const reportInvestment =
+document.getElementById("reportInvestment");
+
+const reportBalance =
+document.getElementById("reportBalance");
+
+reportBtn.onclick = function(){
+
+reportIncome.innerHTML="₹"+income;
+
+reportExpense.innerHTML="₹"+expense;
+
+reportInvestment.innerHTML="₹"+investment;
+
+reportBalance.innerHTML=
+"₹"+(income-expense-investment);
+
+reportModal.style.display="flex";
+
+}
+
+closeReport.onclick=function(){
+
+reportModal.style.display="none";
+
+}
+
+// ---------- Budget ----------
+
+const budgetBtn =
+document.getElementById("budgetBtn");
+
+const budgetModal =
+document.getElementById("budgetModal");
+
+const saveBudget =
+document.getElementById("saveBudget");
+
+const budgetAmount =
+document.getElementById("budgetAmount");
+
+const budgetStatus =
+document.getElementById("budgetStatus");
+
+const closeBudget =
+document.getElementById("closeBudget");
+
+budgetBtn.onclick=function(){
+
+budgetModal.style.display="flex";
+
+}
+
+closeBudget.onclick=function(){
+
+budgetModal.style.display="none";
+
+}
+
+saveBudget.onclick=function(){
+
+budget=Number(budgetAmount.value);
+
+budgetStatus.innerHTML=
+"Monthly Budget : ₹"+budget;
+
+saveLocal();
+
+showToast("Budget Saved");
+
+}
+
+// ---------- Settings ----------
+
+const settingOpen =
+document.getElementById("settingOpen");
+
+const settingsModal =
+document.getElementById("settingsModal");
+
+const closeSettings =
+document.getElementById("closeSettings");
+
+settingOpen.onclick=function(){
+
+settingsModal.style.display="flex";
+
+}
+
+closeSettings.onclick=function(){
+
+settingsModal.style.display="none";
+
+}
+
+// ---------- Manual Finance Edit ----------
+
+const manualEdit =
+document.getElementById("manualEdit");
+
+const manualModal =
+document.getElementById("manualModal");
+
+const saveManual =
+document.getElementById("saveManual");
+
+const closeManual =
+document.getElementById("closeManual");
+
+manualEdit.onclick=function(){
+
+manualModal.style.display="flex";
+
+document.getElementById("manualIncome").value=income;
+
+document.getElementById("manualExpense").value=expense;
+
+document.getElementById("manualInvestment").value=investment;
+
+}
+
+closeManual.onclick=function(){
+
+manualModal.style.display="none";
+
+}
+
+saveManual.onclick=function(){
+
+income=
+Number(document.getElementById("manualIncome").value);
+
+expense=
+Number(document.getElementById("manualExpense").value);
+
+investment=
+Number(document.getElementById("manualInvestment").value);
+
+updateDashboard();
+
+manualModal.style.display="none";
+
+showToast("Finance Updated");
+
+}
+
+// ---------- Toast ----------
+
+function showToast(text){
+
+const toast=
+document.getElementById("toast");
+
+toast.innerHTML=text;
+
+toast.classList.add("show");
+
+setTimeout(function(){
+
+toast.classList.remove("show");
+
+},2500);
+
     }
 
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-
-});
