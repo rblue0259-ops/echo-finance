@@ -448,3 +448,15 @@ toast.classList.remove("show");
 
     }
 
+// Hide Loading Screen
+window.addEventListener("load", function () {
+
+    const loading = document.getElementById("loadingScreen");
+
+    if (loading) {
+        setTimeout(function () {
+            loading.style.display = "none";
+        }, 1000);
+    }
+
+});
