@@ -162,116 +162,15 @@ Cancel
 
     </nav>
     <footer class="footer">
-
-<p>Echo Finance v2.0</p>
-
-<p>Made with ❤️ by Echoverse Studio</p>
-
+  <p>Echo Finance v2.0</p>
+  <p>Made with ❤️ by Echoverse Studio</p>
 </footer>
 
 </div>
-  
+
 <script src="script.js"></script>
-<script>
-window.addEventListener("DOMContentLoaded", function () {
-
-  const reportsBtn = document.getElementById("reportsBtn");
-  const reportModal = document.getElementById("reportModal");
-  const closeReport = document.getElementById("closeReport");
-  const settingsBtn = document.getElementById("settingsBtn");
-const settingsModal = document.getElementById("settingsModal");
-const closeSettings = document.getElementById("closeSettings");
-  const manualEditBtn = document.getElementById("manualEditBtn");
-const manualEditModal = document.getElementById("manualEditModal");
-const closeManualEdit = document.getElementById("closeManualEdit");
-const currentMonth = document.getElementById("currentMonth");
-
-  if(reportsBtn){
-    reportsBtn.onclick = function(){
-
-      document.getElementById("rIncome").innerText =
-      document.getElementById("income").innerText;
-
-      document.getElementById("rExpense").innerText =
-      document.getElementById("expense").innerText;
-
-      document.getElementById("rInvestment").innerText =
-      document.getElementById("investment").innerText;
-
-      document.getElementById("rBalance").innerText =
-      document.getElementById("balance").innerText;
-
-      reportModal.style.display = "flex";
-    };
-  }
-
-  if(closeReport){
-    closeReport.onclick = function(){
-      reportModal.style.display = "none";
-    };
-  }
-  
-if(settingsBtn){
-  settingsBtn.onclick = function(){
-    settingsModal.style.display = "flex";
-  };
-}
-
-if(closeSettings){
-  closeSettings.onclick = function(){
-    settingsModal.style.display = "none";
-  };
-                        }
-if (manualEditBtn) {
-
-    manualEditBtn.onclick = function () {
-
-        const now = new Date();
-
-        const months = [
-            "Jan","Feb","Mar","Apr","May","Jun",
-            "Jul","Aug","Sep","Oct","Nov","Dec"
-        ];
-
-        currentMonth.innerText =
-            "Current Month : " +
-            months[now.getMonth()] + " " + now.getFullYear();
-
-        manualEditModal.style.display = "flex";
-    };
-
-}
-
-if (closeManualEdit) {
-
-    closeManualEdit.onclick = function () {
-
-        manualEditModal.style.display = "none";
-
-    };
-
-  }
- const saveManualEdit = document.getElementById("saveManualEdit");
-
-if (saveManualEdit) {
-    saveManualEdit.onclick = function () {
-
-        income = Number(document.getElementById("editIncome").value);
-        expense = Number(document.getElementById("editExpense").value);
-        investment = Number(document.getElementById("editInvestment").value);
-
-        updateUI();
-
-        manualEditModal.style.display = "none";
-
-        alert("✅ Finance Data Updated Successfully");
-    };
-  } 
-});
-</script>
 
 <div id="reportModal" class="modal">
-
 <div class="modal-content">
   <h2>Finance Report</h2>
 
