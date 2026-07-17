@@ -1,3 +1,8 @@
+/* ===========================
+   Echo Finance v3.0
+   Premium UI
+=========================== */
+
 *{
 margin:0;
 padding:0;
@@ -6,272 +11,798 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#0b1220;
+background:#0f172a;
 color:#fff;
-min-height:100vh;
+overflow-x:hidden;
 }
 
 .app{
-max-width:430px;
+width:100%;
+max-width:480px;
 margin:auto;
+min-height:100vh;
 padding:20px;
-padding-bottom:100px;
+padding-bottom:90px;
 }
 
-.header{
-text-align:center;
-margin-bottom:20px;
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 }
 
-.header h1{
-font-size:32px;
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logoIcon{
+width:55px;
+height:55px;
+border-radius:16px;
+background:#22c55e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+box-shadow:0 10px 25px rgba(34,197,94,.35);
+}
+
+.logo h1{
+font-size:30px;
 font-weight:700;
-color:#22c55e;
 }
 
-.header p{
-    margin-top:8px;
-    font-size:14px;
-    color:#bdbdbd;
-    font-weight:500;
+.logo p{
+font-size:13px;
+color:#94a3b8;
+margin-top:3px;
 }
 
-.balance-card{
+.headerBtns{
+display:flex;
+gap:10px;
+}
+
+.headerBtns button{
+width:45px;
+height:45px;
+border:none;
+border-radius:12px;
+background:#1e293b;
+color:#fff;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+.headerBtns button:hover{
+background:#22c55e;
+}
+
+.balanceCard{
 background:linear-gradient(135deg,#22c55e,#16a34a);
 padding:25px;
-border-radius:22px;
-text-align:center;
-box-shadow:0 10px 25px rgba(34,197,94,.35);
-margin-bottom:20px;
+border-radius:25px;
+margin-bottom:25px;
+box-shadow:0 15px 35px rgba(0,0,0,.3);
 }
 
-.balance-card h3{
-font-size:16px;
+.balanceCard h3{
+font-size:18px;
 font-weight:500;
+opacity:.9;
 }
 
-.balance-card h1{
-font-size:40px;
-margin-top:10px;
+.balanceCard h1{
+font-size:42px;
+margin:15px 0;
 font-weight:700;
 }
 
-.summary{
+.balanceBottom{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.balanceBottom div{
+flex:1;
+background:rgba(255,255,255,.15);
+padding:12px;
+border-radius:15px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+
+.balanceBottom span{
+font-size:13px;
+display:block;
+margin-bottom:6px;
+}
+
+.balanceBottom h2{
+font-size:22px;
+}
+
+.quickAction{
 display:grid;
-grid-template-columns:1fr;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:25px;
+}
+
+.quickAction button{
+border:none;
+padding:16px;
+border-radius:18px;
+background:#1e293b;
+color:white;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.quickAction button:hover{
+background:#22c55e;
+transform:translateY(-3px);
+    }
+
+/* ===========================
+   Recent Transactions
+=========================== */
+
+.transactionArea{
+background:#1e293b;
+padding:20px;
+border-radius:22px;
+margin-bottom:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.sectionTitle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.sectionTitle h2{
+font-size:22px;
+font-weight:600;
+}
+
+.sectionTitle button{
+border:none;
+background:#ef4444;
+color:#fff;
+padding:10px 16px;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.sectionTitle button:hover{
+background:#dc2626;
+}
+
+#history{
+list-style:none;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+#history li{
+background:#0f172a;
+padding:16px;
+border-radius:16px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:15px;
+border-left:5px solid #22c55e;
+transition:.3s;
+}
+
+#history li:hover{
+transform:translateY(-2px);
+}
+
+#history li.empty{
+justify-content:center;
+border-left:none;
+color:#94a3b8;
+}
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.reportsGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
 gap:15px;
 margin-bottom:25px;
 }
 
 .card{
-padding:18px;
-border-radius:18px;
-background:#162033;
-box-shadow:0 6px 18px rgba(0,0,0,.25);
-}
-
-.card span{
-display:block;
-font-size:14px;
-color:#cbd5e1;
-margin-bottom:8px;
-}
-
-.card h2{
-font-size:28px;
-font-weight:700;
-}
-
-.income{
-border-left:5px solid #22c55e;
-}
-
-.expense{
-border-left:5px solid #ef4444;
-}
-
-.investment{
-border-left:5px solid #3b82f6;
-}
-
-.transactions{
-background:#162033;
-padding:18px;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.25);
-margin-bottom:20px;
-}
-
-.title-row{
+background:#1e293b;
+padding:20px;
+border-radius:20px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-margin-bottom:15px;
-}
-
-.title-row h2{
-font-size:20px;
-}
-
-#clearBtn{
-background:#ef4444;
-color:#fff;
-border:none;
-padding:8px 14px;
-border-radius:10px;
+gap:15px;
 cursor:pointer;
+transition:.3s;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
-#history{
-list-style:none;
+.card:hover{
+transform:translateY(-5px);
+background:#263548;
 }
 
-#history li{
-padding:12px;
-border-bottom:1px solid rgba(255,255,255,.08);
-color:#cbd5e1;
-  }
-#fab{
+.cardIcon{
+width:55px;
+height:55px;
+border-radius:16px;
+background:#22c55e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+}
+
+/* ===========================
+   Floating Button
+=========================== */
+
+.fab{
 position:fixed;
-bottom:90px;
-right:20px;
-width:60px;
-height:60px;
-border:none;
+right:22px;
+bottom:95px;
+width:65px;
+height:65px;
 border-radius:50%;
 background:#22c55e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
 color:#fff;
-font-size:32px;
-font-weight:700;
 cursor:pointer;
-box-shadow:0 10px 25px rgba(34,197,94,.4);
+box-shadow:0 10px 25px rgba(34,197,94,.45);
 transition:.3s;
+z-index:999;
 }
 
-#fab:hover{
+.fab:hover{
 transform:scale(1.08);
 }
 
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.65);
-justify-content:center;
-align-items:center;
-padding:20px;
-}
+/* ===========================
+   Bottom Navigation
+=========================== */
 
-.modal-content{
-width:100%;
-max-width:380px;
-background:#162033;
-border-radius:20px;
-padding:20px;
-}
-
-.modal-content h2{
-margin-bottom:15px;
-}
-
-.modal-content input,
-.modal-content select{
-width:100%;
-padding:14px;
-margin:10px 0;
-background:#0b1220;
-border:1px solid #334155;
-border-radius:12px;
-color:#fff;
-}
-
-.button-group{
-display:flex;
-gap:10px;
-margin-top:15px;
-}
-
-.button-group button{
-flex:1;
-padding:14px;
-border:none;
-border-radius:12px;
-font-size:16px;
-cursor:pointer;
-}
-
-#saveBtn{
-background:#22c55e;
-color:#fff;
-}
-
-#cancelBtn{
-background:#ef4444;
-color:#fff;
-}
-
-.bottom-nav{
+.bottomNav{
 position:fixed;
 left:0;
 right:0;
 bottom:0;
-background:#162033;
+max-width:480px;
+margin:auto;
+height:72px;
+background:#1e293b;
 display:flex;
 justify-content:space-around;
-padding:12px 0;
+align-items:center;
 border-top:1px solid rgba(255,255,255,.08);
 }
 
-.bottom-nav button{
+.bottomNav button{
 background:none;
 border:none;
 color:#94a3b8;
 display:flex;
 flex-direction:column;
 align-items:center;
+gap:4px;
 font-size:13px;
 cursor:pointer;
+transition:.3s;
 }
 
-.bottom-nav .active{
+.bottomNav button i{
+font-size:20px;
+}
+
+.bottomNav button.active,
+.bottomNav button:hover{
+color:#22c55e;
+    }
+
+/* ===========================
+   Premium Modal UI
+=========================== */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(8px);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:9999;
+animation:fadeIn .25s ease;
+}
+
+.modalContent{
+width:100%;
+max-width:420px;
+background:rgba(30,41,59,.95);
+border:1px solid rgba(255,255,255,.08);
+border-radius:25px;
+padding:25px;
+box-shadow:0 20px 50px rgba(0,0,0,.45);
+animation:popup .3s ease;
+}
+
+.modalContent h2{
+text-align:center;
+margin-bottom:20px;
+font-size:26px;
+font-weight:700;
+}
+
+/* ===========================
+   Inputs
+=========================== */
+
+.modalContent input,
+.modalContent select{
+width:100%;
+padding:15px;
+margin:10px 0;
+border:none;
+outline:none;
+border-radius:14px;
+background:#0f172a;
+color:#fff;
+font-size:16px;
+transition:.25s;
+}
+
+.modalContent input:focus,
+.modalContent select:focus{
+border:2px solid #22c55e;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.modalContent button{
+width:100%;
+padding:15px;
+margin-top:12px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-size:16px;
+font-weight:600;
+transition:.3s;
+}
+
+#saveTransaction,
+#saveBudget,
+#saveManual,
+#savePin,
+#downloadPdf,
+#downloadExcel,
+#addPortfolio{
+background:#22c55e;
+color:#fff;
+}
+
+#saveTransaction:hover,
+#saveBudget:hover,
+#saveManual:hover,
+#savePin:hover,
+#downloadPdf:hover,
+#downloadExcel:hover,
+#addPortfolio:hover{
+background:#16a34a;
+}
+
+#closeTransaction,
+#closeBudget,
+#closeManual,
+#closePortfolio,
+#closeSettings,
+#closeReport,
+#closeSearch,
+#closePin,
+#closeBackup{
+background:#ef4444;
+color:#fff;
+}
+
+#closeTransaction:hover,
+#closeBudget:hover,
+#closeManual:hover,
+#closePortfolio:hover,
+#closeSettings:hover,
+#closeReport:hover,
+#closeSearch:hover,
+#closePin:hover,
+#closeBackup:hover{
+background:#dc2626;
+}
+
+/* ===========================
+   Report UI
+=========================== */
+
+.reportBox{
+display:flex;
+flex-direction:column;
+gap:15px;
+margin-bottom:20px;
+}
+
+.reportItem{
+background:#0f172a;
+padding:18px;
+border-radius:16px;
+border-left:5px solid #22c55e;
+}
+
+.reportItem span{
+display:block;
+font-size:14px;
+color:#94a3b8;
+margin-bottom:6px;
+}
+
+.reportItem h2,
+.reportItem h3{
+font-size:26px;
+}
+
+.reportItem.balance{
+background:linear-gradient(135deg,#22c55e,#16a34a);
+border-left:none;
+}
+
+/* ===========================
+   Portfolio UI
+=========================== */
+
+.portfolioCard{
+background:#0f172a;
+padding:18px;
+border-radius:18px;
+margin-bottom:15px;
+text-align:center;
+}
+
+.portfolioCard h3{
+font-size:16px;
+color:#94a3b8;
+margin-bottom:10px;
+}
+
+.portfolioCard h1{
+font-size:34px;
+}
+
+.portfolioCard h2{
+font-size:26px;
+}
+
+/* ===========================
+   Glass Effect
+=========================== */
+
+.glass{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.12);
+}
+
+/* ===========================
+   Animations
+=========================== */
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:scale(.85);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+}
+
+to{
+opacity:1;
+}
+
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+
+@media(max-width:480px){
+
+.app{
+padding:15px;
+padding-bottom:90px;
+}
+
+.logo h1{
+font-size:24px;
+}
+
+.balanceCard h1{
+font-size:34px;
+}
+
+.balanceBottom{
+flex-direction:column;
+}
+
+.quickAction{
+grid-template-columns:1fr;
+}
+
+.reportsGrid{
+grid-template-columns:1fr;
+}
+
+.modalContent{
+padding:20px;
+}
+
+    }
+
+/* ===========================
+   Loading Screen
+=========================== */
+
+#loadingScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0f172a;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:20px;
+z-index:99999;
+transition:.4s;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid rgba(255,255,255,.15);
+border-top:6px solid #22c55e;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+/* ===========================
+   Toast Notification
+=========================== */
+
+#toast{
+position:fixed;
+bottom:95px;
+left:50%;
+transform:translateX(-50%);
+background:#22c55e;
+color:#fff;
+padding:14px 24px;
+border-radius:14px;
+font-size:15px;
+font-weight:600;
+opacity:0;
+visibility:hidden;
+transition:.3s;
+z-index:99999;
+box-shadow:0 12px 25px rgba(34,197,94,.35);
+}
+
+#toast.show{
+opacity:1;
+visibility:visible;
+}
+
+/* ===========================
+   Search Results
+=========================== */
+
+#searchResult{
+list-style:none;
+margin-top:15px;
+max-height:300px;
+overflow-y:auto;
+}
+
+#searchResult li{
+background:#0f172a;
+padding:15px;
+margin-bottom:10px;
+border-radius:14px;
+border-left:4px solid #22c55e;
+cursor:pointer;
+transition:.3s;
+}
+
+#searchResult li:hover{
+background:#162032;
+}
+
+/* ===========================
+   Budget Status
+=========================== */
+
+#budgetStatus{
+margin-top:18px;
+padding:12px;
+border-radius:12px;
+background:#0f172a;
+text-align:center;
+font-weight:600;
 color:#22c55e;
 }
 
-.footer{
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+background:#22c55e;
+border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+background:#16a34a;
+}
+
+/* ===========================
+   Dark / Light Theme
+=========================== */
+
+body.light{
+background:#f8fafc;
+color:#111827;
+}
+
+body.light .balanceCard{
+color:#fff;
+}
+
+body.light .card,
+body.light .transactionArea,
+body.light .bottomNav,
+body.light .modalContent{
+background:#ffffff;
+color:#111827;
+}
+
+body.light .headerBtns button,
+body.light .quickAction button{
+background:#e5e7eb;
+color:#111827;
+}
+
+body.light #history li,
+body.light .portfolioCard,
+body.light .reportItem{
+background:#f1f5f9;
+color:#111827;
+}
+
+/* ===========================
+   Utility Classes
+=========================== */
+
+.hidden{
+display:none !important;
+}
+
+.text-center{
 text-align:center;
-color:#94a3b8;
-margin:25px 0;
-font-size:14px;
 }
 
-@media(min-width:700px){
-
-.summary{
-grid-template-columns:repeat(3,1fr);
+.mt-10{
+margin-top:10px;
 }
 
-.app{
-max-width:900px;
+.mt-20{
+margin-top:20px;
 }
 
-  }
-.settings-btn{
-    width:100%;
-    margin:15px 0;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#22c55e;
-    color:#fff;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+.mb-20{
+margin-bottom:20px;
 }
 
-.settings-btn:hover{
-    background:#16a34a;
-                           }
+.shadow{
+box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+.rounded{
+border-radius:20px;
+}
+
+.fade{
+animation:fadeIn .35s ease;
+}
+
+.scale{
+animation:popup .35s ease;
+}
+
+/* ===========================
+   Premium Hover Effects
+=========================== */
+
+button,
+.card,
+.fab,
+.portfolioCard,
+.reportItem{
+transition:all .3s ease;
+}
+
+button:active,
+.card:active,
+.fab:active{
+transform:scale(.96);
+    }
