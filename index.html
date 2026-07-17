@@ -1,123 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo Finance</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+<title>Echo Finance</title>
 
-  <meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<meta name="theme-color" content="#0f172a">
 </head>
 
 <body>
 
 <div class="app">
 
-<header class="header">
+<header>
 
-    <h1>💰 Echo Finance</h1>
+<div class="logo">
 
-    <p id="liveDateTime">📅 Loading...</p>
+<div class="logoIcon">
+💰
+</div>
+
+<div>
+
+<h1>Echo Finance</h1>
+
+<p id="liveDateTime"></p>
+
+</div>
+
+</div>
+
+<div class="headerBtns">
+
+<button id="searchOpen">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+
+<button id="settingOpen">
+<i class="fa-solid fa-gear"></i>
+</button>
+
+</div>
 
 </header>
 
-<section class="balance-card">
+<section class="balanceCard">
 
 <h3>Total Balance</h3>
 
-<h1 id="balance">₹0</h1>
+<h1 id="balance">
+₹0
+</h1>
 
-</section>
+<div class="balanceBottom">
 
-<section class="summary">
-
-<div class="card income">
+<div>
 
 <span>Income</span>
 
-<h2 id="income">₹0</h2>
+<h2 id="income">
+₹0
+</h2>
 
 </div>
 
-<div class="card expense">
+<div>
 
 <span>Expense</span>
 
-<h2 id="expense">₹0</h2>
+<h2 id="expense">
+₹0
+</h2>
 
 </div>
 
-<div class="card investment">
+<div>
 
 <span>Investment</span>
 
-<h2 id="investment">₹0</h2>
+<h2 id="investment">
+₹0
+</h2>
+
+</div>
 
 </div>
 
 </section>
 
-<section class="transactions">
+<section class="quickAction">
 
-<div class="title-row">
+<button id="incomeBtn">
 
-<h2>Recent Transactions</h2>
+<i class="fa-solid fa-arrow-trend-up"></i>
 
-<button id="clearBtn">Clear</button>
+Income
+
+</button>
+
+<button id="expenseBtn">
+
+<i class="fa-solid fa-arrow-trend-down"></i>
+
+Expense
+
+</button>
+
+<button id="investmentBtn">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Investment
+
+</button>
+
+</section>
+
+<section class="transactionArea">
+
+<div class="sectionTitle">
+
+<h2>
+
+Recent Transactions
+
+</h2>
+
+<button id="clearHistory">
+
+Clear
+
+</button>
 
 </div>
 
 <ul id="history">
 
-<li>No Transactions Yet</li>
+<li class="empty">
+
+No Transactions Yet
+
+</li>
+
 </ul>
 
 </section>
 
-<button id="fab">+</button>
+  <section class="reportsGrid">
 
-<div id="modal" class="modal">
+<div class="card" id="reportBtn">
 
-<div class="modal-content">
+<div class="cardIcon">
 
-<h2>Add Transaction</h2>
+📊
+
+</div>
+
+<div>
+
+<h3>Reports</h3>
+
+<p>View Finance Report</p>
+
+</div>
+
+</div>
+
+<div class="card" id="budgetBtn">
+
+<div class="cardIcon">
+
+🎯
+
+</div>
+
+<div>
+
+<h3>Budget</h3>
+
+<p>Manage Monthly Budget</p>
+
+</div>
+
+</div>
+
+<div class="card" id="portfolioBtn">
+
+<div class="cardIcon">
+
+📈
+
+</div>
+
+<div>
+
+<h3>Portfolio</h3>
+
+<p>Track Investments</p>
+
+</div>
+
+</div>
+
+<div class="card" id="goalBtn">
+
+<div class="cardIcon">
+
+🏆
+
+</div>
+
+<div>
+
+<h3>Goals</h3>
+
+<p>Savings Target</p>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="fab" id="fab">
+
+<i class="fa-solid fa-plus"></i>
+
+</div>
+
+<div class="bottomNav">
+
+<button class="active">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</button>
+
+<button id="analyticsPage">
+
+<i class="fa-solid fa-chart-pie"></i>
+
+<span>Analytics</span>
+
+</button>
+
+<button id="portfolioPage">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span>Portfolio</span>
+
+</button>
+
+<button id="settingPage">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</button>
+
+</div>
+
+<!-- Add Transaction Modal -->
+
+<div class="modal" id="transactionModal">
+
+<div class="modalContent">
+
+<h2>
+
+Add Transaction
+
+</h2>
+
+<select id="transactionType">
+
+<option value="income">
+
+Income
+
+</option>
+
+<option value="expense">
+
+Expense
+
+</option>
+
+<option value="investment">
+
+Investment
+
+</option>
+
+</select>
 
 <input
 type="number"
 id="amount"
-placeholder="Enter Amount">
-
-<select id="type">
-
-<option value="income">Income</option>
-
-<option value="expense">Expense</option>
-
-<option value="investment">Investment</option>
-
-</select>
+placeholder="Amount">
 
 <input
 type="text"
 id="note"
 placeholder="Description">
 
-<div class="button-group">
+<button id="saveTransaction">
 
-<button id="saveBtn">
-
-Save
+Save Transaction
 
 </button>
 
-<button id="cancelBtn">
+<button id="closeTransaction">
 
 Cancel
 
@@ -125,114 +331,373 @@ Cancel
 
 </div>
 
-</div>
-
-</div>
-
-<nav class="bottom-nav">
-
-<button class="active">
-
-🏠
-
-<span>Home</span>
-
-</button>
-
-<button id="reportsBtn">
-
-📊
-
-<span>Reports</span>
-
-</button>
-
-<button>
-
-💼
-
-<span>Portfolio</span>
-
-</button>
-
-<button id="settingsBtn">
-    ⚙️
-    <span>Settings</span>
-</button>
-
-    </nav>
-    <footer class="footer">
-  <p>Echo Finance v2.0</p>
-  <p>Made with ❤️ by Echoverse Studio</p>
-</footer>
-
-</div>
-
-<script src="script.js"></script>
-
-<div id="reportModal" class="modal">
-<div class="modal-content">
-  <h2>Finance Report</h2>
-
-  <p>Total Income: <span id="rIncome">₹0</span></p>
-  <p>Total Expense: <span id="rExpense">₹0</span></p>
-  <p>Total Investment: <span id="rInvestment">₹0</span></p>
-  <p><b>Balance: <span id="rBalance">₹0</span></b></p>
-
-  <button id="closeReport">Close</button>
-</div>
   </div>
 
+  <!-- Reports Modal -->
+
+<div class="modal" id="reportModal">
+
+<div class="modalContent">
+
+<h2>Finance Report</h2>
+
+<div class="reportBox">
+
+<div class="reportItem">
+<span>Total Income</span>
+<h3 id="reportIncome">₹0</h3>
 </div>
-<div id="settingsModal" class="modal">
 
-  <div class="modal-content">
+<div class="reportItem">
+<span>Total Expense</span>
+<h3 id="reportExpense">₹0</h3>
+</div>
 
-    <h2>⚙️ Settings</h2>
+<div class="reportItem">
+<span>Total Investment</span>
+<h3 id="reportInvestment">₹0</h3>
+</div>
 
-    <p>👤 Profile : Echo User</p>
+<div class="reportItem balance">
+<span>Current Balance</span>
+<h2 id="reportBalance">₹0</h2>
+</div>
 
-    <p>💱 Currency : ₹ INR</p>
+</div>
 
-    <p>🌙 Theme : Dark</p>
-    
-    <button id="manualEditBtn" class="settings-btn">
-    ✏️ Manual Finance Edit
+<div class="modalButtons">
+
+<button id="downloadPdf">
+
+<i class="fa-solid fa-file-pdf"></i>
+
+Export PDF
+
 </button>
 
-<p id="editStatus"></p>
+<button id="downloadExcel">
 
-    <p>📦 Backup & Restore (Coming Soon)</p>
+<i class="fa-solid fa-file-excel"></i>
 
-    <p>🔒 PIN Lock (Coming Soon)</p>
+Export Excel
 
-    <button id="closeSettings">Close</button>
+</button>
+
+<button id="closeReport">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Search Modal -->
+
+<div class="modal" id="searchModal">
+
+<div class="modalContent">
+
+<h2>
+
+Search Transaction
+
+</h2>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search transaction...">
+
+<ul id="searchResult">
+
+</ul>
+
+<button id="closeSearch">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Budget Modal -->
+
+<div class="modal" id="budgetModal">
+
+<div class="modalContent">
+
+<h2>
+
+Monthly Budget
+
+</h2>
+
+<input
+type="number"
+id="budgetAmount"
+placeholder="Enter Budget">
+
+<button id="saveBudget">
+
+Save Budget
+
+</button>
+
+<p id="budgetStatus">
+
+No Budget Set
+
+</p>
+
+<button id="closeBudget">
+
+Close
+
+</button>
+
+</div>
 
   </div>
 
-  </div>
-  <div id="manualEditModal" class="modal">
+  <!-- Portfolio Modal -->
 
-    <div class="modal-content">
+<div class="modal" id="portfolioModal">
 
-        <h2>✏️ Manual Finance Edit</h2>
+    <div class="modalContent">
 
-        <p id="currentMonth"></p>
+        <h2>Investment Portfolio</h2>
 
-        <input id="editIncome" type="number" placeholder="Total Income">
+        <div class="portfolioCard">
 
-        <input id="editExpense" type="number" placeholder="Total Expense">
+            <h3>Total Investment</h3>
 
-        <input id="editInvestment" type="number" placeholder="Total Investment">
+            <h1 id="portfolioTotal">₹0</h1>
 
-        <textarea id="editReason" placeholder="Reason for Edit"></textarea>
+        </div>
 
-        <button id="saveManualEdit">💾 Save</button>
+        <div class="portfolioCard">
 
-        <button id="closeManualEdit">Cancel</button>
+            <h3>Total Profit / Loss</h3>
+
+            <h2 id="portfolioProfit">₹0</h2>
+
+        </div>
+
+        <div class="portfolioCard">
+
+            <h3>Current Portfolio Value</h3>
+
+            <h2 id="portfolioValue">₹0</h2>
+
+        </div>
+
+        <button id="addPortfolio">
+
+            Add Investment
+
+        </button>
+
+        <button id="closePortfolio">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Settings Modal -->
+
+<div class="modal" id="settingsModal">
+
+    <div class="modalContent">
+
+        <h2>Settings</h2>
+
+        <button id="manualEdit">
+
+            Manual Finance Edit
+
+        </button>
+
+        <button id="themeToggle">
+
+            Dark / Light Mode
+
+        </button>
+
+        <button id="backupData">
+
+            Backup Data
+
+        </button>
+
+        <button id="restoreData">
+
+            Restore Data
+
+        </button>
+
+        <button id="pinLock">
+
+            PIN Lock
+
+        </button>
+
+        <button id="closeSettings">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Manual Finance Edit Modal -->
+
+<div class="modal" id="manualModal">
+
+    <div class="modalContent">
+
+        <h2>Manual Finance Edit</h2>
+
+        <input
+            type="number"
+            id="manualIncome"
+            placeholder="Income">
+
+        <input
+            type="number"
+            id="manualExpense"
+            placeholder="Expense">
+
+        <input
+            type="number"
+            id="manualInvestment"
+            placeholder="Investment">
+
+        <button id="saveManual">
+
+            Save Changes
+
+        </button>
+
+        <button id="closeManual">
+
+            Cancel
+
+        </button>
 
     </div>
 
   </div>
+
+  <!-- PIN Lock Modal -->
+
+<div class="modal" id="pinModal">
+
+    <div class="modalContent">
+
+        <h2>PIN Lock</h2>
+
+        <input
+            type="password"
+            id="pinInput"
+            maxlength="4"
+            placeholder="Enter 4 Digit PIN">
+
+        <button id="savePin">
+            Save PIN
+        </button>
+
+        <button id="unlockPin">
+            Unlock
+        </button>
+
+        <button id="closePin">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Backup & Restore Modal -->
+
+<div class="modal" id="backupModal">
+
+    <div class="modalContent">
+
+        <h2>Backup & Restore</h2>
+
+        <button id="exportBackup">
+
+            Export Backup
+
+        </button>
+
+        <button id="importBackup">
+
+            Import Backup
+
+        </button>
+
+        <input
+            type="file"
+            id="backupFile"
+            accept=".json"
+            hidden>
+
+        <button id="closeBackup">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Loading -->
+
+<div id="loadingScreen">
+
+    <div class="loader"></div>
+
+    <h2>
+
+        Echo Finance
+
+    </h2>
+
+</div>
+
+<!-- Toast -->
+
+<div id="toast">
+
+    Saved Successfully
+
+</div>
+
+<!-- Chart Library -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Main Script -->
+
+<script src="script.js"></script>
+
+</div>
+
 </body>
+
   </html>
