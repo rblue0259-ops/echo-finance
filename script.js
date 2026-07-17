@@ -1,3 +1,4 @@
+alert("Script Loaded");
 // ========================================
 // Echo Finance v3.0
 // Premium Script
