@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Echo Finance</title>
+<title>Echo Finance v4.0</title>
+
+<link rel="stylesheet" href="style.css">
 
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#16a34a">
+
 </head>
 
 <body>
 
+<div id="loadingScreen">
+
+<div class="loader"></div>
+
+<h2>Echo Finance</h2>
+
+</div>
+
 <div class="app">
+
+<!-- HEADER -->
 
 <header>
 
-<div class="logo">
+<div class="logoArea">
 
-<div class="logoIcon">
+<div class="logoBox">
+
 💰
+
 </div>
 
 <div>
@@ -39,36 +54,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </div>
 
-<div class="headerBtns">
+<div class="headerButtons">
 
 <button id="searchOpen">
+
 <i class="fa-solid fa-magnifying-glass"></i>
+
 </button>
 
 <button id="settingOpen">
+
 <i class="fa-solid fa-gear"></i>
+
 </button>
 
 </div>
 
 </header>
 
+<!-- DASHBOARD -->
+
 <section class="balanceCard">
 
-<h3>Total Balance</h3>
+<p>Total Balance</p>
 
 <h1 id="balance">
+
 ₹0
+
 </h1>
 
-<div class="balanceBottom">
+<div class="balanceGrid">
 
 <div>
 
 <span>Income</span>
 
 <h2 id="income">
+
 ₹0
+
 </h2>
 
 </div>
@@ -78,7 +103,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <span>Expense</span>
 
 <h2 id="expense">
+
 ₹0
+
 </h2>
 
 </div>
@@ -88,7 +115,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <span>Investment</span>
 
 <h2 id="investment">
+
 ₹0
+
 </h2>
 
 </div>
@@ -97,7 +126,75 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </section>
 
-<section class="quickAction">
+<!-- BANK SUMMARY -->
+
+<section class="bankSummary">
+
+<h2>
+
+🏦 My Accounts
+
+</h2>
+
+<div class="bankCard">
+
+<div>
+
+🏦 PNB
+
+</div>
+
+<h3 id="bankPNB">
+
+₹0
+
+</h3>
+
+</div>
+
+<div class="bankCard">
+
+<div>
+
+🏦 SBI
+
+</div>
+
+<h3 id="bankSBI">
+
+₹0
+
+</h3>
+
+</div>
+
+<div class="bankCard">
+
+<div>
+
+💵 Cash
+
+</div>
+
+<h3 id="bankCash">
+
+₹0
+
+</h3>
+
+</div>
+
+<button id="manageBank">
+
++ Add Bank
+
+</button>
+
+</section>
+
+<!-- QUICK ACTION -->
+
+<section class="quickGrid">
 
 <button id="incomeBtn">
 
@@ -123,22 +220,27 @@ Investment
 
 </button>
 
+<button id="transferBtn">
+
+<i class="fa-solid fa-right-left"></i>
+
+Transfer
+
+</button>
+
 </section>
+
+<!-- Transactions Section Starts -->
+<!-- Recent Transactions -->
 
 <section class="transactionArea">
 
 <div class="sectionTitle">
 
-<h2>
-
-Recent Transactions
-
-</h2>
+<h2>Recent Transactions</h2>
 
 <button id="clearHistory">
-
 Clear
-
 </button>
 
 </div>
@@ -146,30 +248,26 @@ Clear
 <ul id="history">
 
 <li class="empty">
-
 No Transactions Yet
-
 </li>
 
 </ul>
 
 </section>
 
-  <section class="reportsGrid">
+<!-- Dashboard Cards -->
+
+<section class="dashboardGrid">
 
 <div class="card" id="reportBtn">
 
-<div class="cardIcon">
-
-📊
-
-</div>
+<div class="cardIcon">📊</div>
 
 <div>
 
 <h3>Reports</h3>
 
-<p>View Finance Report</p>
+<p>View Monthly Report</p>
 
 </div>
 
@@ -177,17 +275,13 @@ No Transactions Yet
 
 <div class="card" id="budgetBtn">
 
-<div class="cardIcon">
-
-🎯
-
-</div>
+<div class="cardIcon">🎯</div>
 
 <div>
 
 <h3>Budget</h3>
 
-<p>Manage Monthly Budget</p>
+<p>Monthly Budget</p>
 
 </div>
 
@@ -195,17 +289,13 @@ No Transactions Yet
 
 <div class="card" id="portfolioBtn">
 
-<div class="cardIcon">
-
-📈
-
-</div>
+<div class="cardIcon">📈</div>
 
 <div>
 
 <h3>Portfolio</h3>
 
-<p>Track Investments</p>
+<p>Investment Tracker</p>
 
 </div>
 
@@ -213,17 +303,13 @@ No Transactions Yet
 
 <div class="card" id="goalBtn">
 
-<div class="cardIcon">
-
-🏆
-
-</div>
+<div class="cardIcon">🏆</div>
 
 <div>
 
 <h3>Goals</h3>
 
-<p>Savings Target</p>
+<p>Savings Goals</p>
 
 </div>
 
@@ -231,11 +317,25 @@ No Transactions Yet
 
 </section>
 
+<!-- Analytics -->
+
+<section class="analyticsCard">
+
+<h2>Analytics</h2>
+
+<canvas id="financeChart"></canvas>
+
+</section>
+
+<!-- Floating Button -->
+
 <div class="fab" id="fab">
 
 <i class="fa-solid fa-plus"></i>
 
 </div>
+
+<!-- Bottom Navigation -->
 
 <div class="bottomNav">
 
@@ -263,6 +363,14 @@ No Transactions Yet
 
 </button>
 
+<button id="bankPage">
+
+<i class="fa-solid fa-building-columns"></i>
+
+<span>Banks</span>
+
+</button>
+
 <button id="settingPage">
 
 <i class="fa-solid fa-gear"></i>
@@ -273,44 +381,38 @@ No Transactions Yet
 
 </div>
 
-<!-- Add Transaction Modal -->
+<!-- Transaction Modal Starts -->
+  <!-- ===========================
+     Add Transaction Modal
+=========================== -->
 
 <div class="modal" id="transactionModal">
 
 <div class="modalContent">
 
-<h2>
-
-Add Transaction
-
-</h2>
+<h2>Add Transaction</h2>
 
 <select id="transactionType">
 
-<option value="income">
+<option value="income">Income</option>
+<option value="expense">Expense</option>
+<option value="investment">Investment</option>
 
-Income
+</select>
 
-</option>
+<select id="transactionBank">
 
-<option value="expense">
-
-Expense
-
-</option>
-
-<option value="investment">
-
-Investment
-
-</option>
+<option value="PNB">🏦 PNB</option>
+<option value="SBI">🏦 SBI</option>
+<option value="Cash">💵 Cash</option>
+<option value="UPI">📱 UPI</option>
 
 </select>
 
 <input
 type="number"
 id="amount"
-placeholder="Amount">
+placeholder="Enter Amount">
 
 <input
 type="text"
@@ -331,9 +433,99 @@ Cancel
 
 </div>
 
-  </div>
+</div>
 
-  <!-- Reports Modal -->
+<!-- ===========================
+     Add Bank Modal
+=========================== -->
+
+<div class="modal" id="bankModal">
+
+<div class="modalContent">
+
+<h2>Add New Bank</h2>
+
+<input
+type="text"
+id="bankName"
+placeholder="Bank Name">
+
+<input
+type="number"
+id="openingBalance"
+placeholder="Opening Balance">
+
+<button id="saveBank">
+
+Add Bank
+
+</button>
+
+<button id="closeBank">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+     Bank Transfer Modal
+=========================== -->
+
+<div class="modal" id="transferModal">
+
+<div class="modalContent">
+
+<h2>Transfer Money</h2>
+
+<select id="fromBank">
+
+<option>PNB</option>
+<option>SBI</option>
+<option>Cash</option>
+<option>UPI</option>
+
+</select>
+
+<select id="toBank">
+
+<option>PNB</option>
+<option>SBI</option>
+<option>Cash</option>
+<option>UPI</option>
+
+</select>
+
+<input
+type="number"
+id="transferAmount"
+placeholder="Transfer Amount">
+
+<button id="transferMoney">
+
+Transfer
+
+</button>
+
+<button id="closeTransfer">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+     Reports Modal Starts
+=========================== -->
+  <!-- ===========================
+     Reports Modal
+=========================== -->
 
 <div class="modal" id="reportModal">
 
@@ -365,78 +557,31 @@ Cancel
 
 </div>
 
-<div class="modalButtons">
-
 <button id="downloadPdf">
-
-<i class="fa-solid fa-file-pdf"></i>
-
 Export PDF
-
 </button>
 
 <button id="downloadExcel">
-
-<i class="fa-solid fa-file-excel"></i>
-
 Export Excel
-
 </button>
 
 <button id="closeReport">
-
 Close
-
 </button>
 
 </div>
 
 </div>
 
-</div>
-
-<!-- Search Modal -->
-
-<div class="modal" id="searchModal">
-
-<div class="modalContent">
-
-<h2>
-
-Search Transaction
-
-</h2>
-
-<input
-type="text"
-id="searchInput"
-placeholder="Search transaction...">
-
-<ul id="searchResult">
-
-</ul>
-
-<button id="closeSearch">
-
-Close
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Budget Modal -->
+<!-- ===========================
+     Budget Modal
+=========================== -->
 
 <div class="modal" id="budgetModal">
 
 <div class="modalContent">
 
-<h2>
-
-Monthly Budget
-
-</h2>
+<h2>Monthly Budget</h2>
 
 <input
 type="number"
@@ -463,220 +608,228 @@ Close
 
 </div>
 
-  </div>
+</div>
 
-  <!-- Portfolio Modal -->
+<!-- ===========================
+     Portfolio Modal
+=========================== -->
 
 <div class="modal" id="portfolioModal">
 
-    <div class="modalContent">
+<div class="modalContent">
 
-        <h2>Investment Portfolio</h2>
+<h2>Portfolio</h2>
 
-        <div class="portfolioCard">
+<div class="portfolioCard">
 
-            <h3>Total Investment</h3>
+<h3>Total Investment</h3>
 
-            <h1 id="portfolioTotal">₹0</h1>
+<h1 id="portfolioTotal">
 
-        </div>
+₹0
 
-        <div class="portfolioCard">
-
-            <h3>Total Profit / Loss</h3>
-
-            <h2 id="portfolioProfit">₹0</h2>
-
-        </div>
-
-        <div class="portfolioCard">
-
-            <h3>Current Portfolio Value</h3>
-
-            <h2 id="portfolioValue">₹0</h2>
-
-        </div>
-
-        <button id="addPortfolio">
-
-            Add Investment
-
-        </button>
-
-        <button id="closePortfolio">
-
-            Close
-
-        </button>
-
-    </div>
+</h1>
 
 </div>
 
-<!-- Settings Modal -->
+<div class="portfolioCard">
+
+<h3>Profit / Loss</h3>
+
+<h2 id="portfolioProfit">
+
+₹0
+
+</h2>
+
+</div>
+
+<div class="portfolioCard">
+
+<h3>Current Value</h3>
+
+<h2 id="portfolioValue">
+
+₹0
+
+</h2>
+
+</div>
+
+<button id="closePortfolio">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+     Goal Modal
+=========================== -->
+
+<div class="modal" id="goalModal">
+
+<div class="modalContent">
+
+<h2>Savings Goal</h2>
+
+<input
+type="number"
+id="goalAmount"
+placeholder="Target Amount">
+
+<button id="saveGoal">
+
+Save Goal
+
+</button>
+
+<p id="goalStatus">
+
+No Goal Set
+
+</p>
+
+<button id="closeGoal">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+     Search Modal
+=========================== -->
+
+<div class="modal" id="searchModal">
+
+<div class="modalContent">
+
+<h2>Search Transaction</h2>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search...">
+
+<ul id="searchResult"></ul>
+
+<button id="closeSearch">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+     Settings Modal
+=========================== -->
 
 <div class="modal" id="settingsModal">
 
-    <div class="modalContent">
+<div class="modalContent">
 
-        <h2>Settings</h2>
+<h2>Settings</h2>
 
-        <button id="manualEdit">
+<button id="manualEdit">
 
-            Manual Finance Edit
+Manual Finance Edit
 
-        </button>
+</button>
 
-        <button id="themeToggle">
+<button id="themeToggle">
 
-            Dark / Light Mode
+Dark / Light Mode
 
-        </button>
+</button>
 
-        <button id="backupData">
+<button id="backupData">
 
-            Backup Data
+Backup
 
-        </button>
+</button>
 
-        <button id="restoreData">
+<button id="restoreData">
 
-            Restore Data
+Restore
 
-        </button>
+</button>
 
-        <button id="pinLock">
+<button id="pinLock">
 
-            PIN Lock
+PIN Lock
 
-        </button>
+</button>
 
-        <button id="closeSettings">
+<button id="closeSettings">
 
-            Close
+Close
 
-        </button>
-
-    </div>
+</button>
 
 </div>
 
-<!-- Manual Finance Edit Modal -->
+</div>
+
+<!-- ===========================
+     Manual Edit Modal
+=========================== -->
 
 <div class="modal" id="manualModal">
 
-    <div class="modalContent">
+<div class="modalContent">
 
-        <h2>Manual Finance Edit</h2>
+<h2>Manual Finance Edit</h2>
 
-        <input
-            type="number"
-            id="manualIncome"
-            placeholder="Income">
+<input
+type="number"
+id="manualIncome"
+placeholder="Income">
 
-        <input
-            type="number"
-            id="manualExpense"
-            placeholder="Expense">
+<input
+type="number"
+id="manualExpense"
+placeholder="Expense">
 
-        <input
-            type="number"
-            id="manualInvestment"
-            placeholder="Investment">
+<input
+type="number"
+id="manualInvestment"
+placeholder="Investment">
 
-        <button id="saveManual">
+<button id="saveManual">
 
-            Save Changes
+Save
 
-        </button>
+</button>
 
-        <button id="closeManual">
+<button id="closeManual">
 
-            Cancel
+Cancel
 
-        </button>
-
-    </div>
-
-  </div>
-
-  <!-- PIN Lock Modal -->
-
-<div class="modal" id="pinModal">
-
-    <div class="modalContent">
-
-        <h2>PIN Lock</h2>
-
-        <input
-            type="password"
-            id="pinInput"
-            maxlength="4"
-            placeholder="Enter 4 Digit PIN">
-
-        <button id="savePin">
-            Save PIN
-        </button>
-
-        <button id="unlockPin">
-            Unlock
-        </button>
-
-        <button id="closePin">
-            Close
-        </button>
-
-    </div>
+</button>
 
 </div>
 
-<!-- Backup & Restore Modal -->
-
-<div class="modal" id="backupModal">
-
-    <div class="modalContent">
-
-        <h2>Backup & Restore</h2>
-
-        <button id="exportBackup">
-
-            Export Backup
-
-        </button>
-
-        <button id="importBackup">
-
-            Import Backup
-
-        </button>
-
-        <input
-            type="file"
-            id="backupFile"
-            accept=".json"
-            hidden>
-
-        <button id="closeBackup">
-
-            Close
-
-        </button>
-
-    </div>
-
 </div>
 
-<!-- Loading -->
+<!-- ===========================
+     Loading
+=========================== -->
 
 <div id="loadingScreen">
 
-    <div class="loader"></div>
+<div class="loader"></div>
 
-    <h2>
-
-        Echo Finance
-
-    </h2>
+<h2>Echo Finance</h2>
 
 </div>
 
@@ -684,20 +837,15 @@ Close
 
 <div id="toast">
 
-    Saved Successfully
+Saved Successfully
 
 </div>
 
-<!-- Chart Library -->
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Main Script -->
 
 <script src="script.js"></script>
 
 </div>
 
 </body>
-
   </html>
