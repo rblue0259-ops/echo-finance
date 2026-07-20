@@ -1,29 +1,71 @@
-alert("Script Loaded");
-// ========================================
-// Echo Finance v3.0
-// Premium Script
+// ==========================================
+// Echo Finance v4.0
+// Premium Banking System
 // Part 1
-// ========================================
+// ==========================================
 
-let income = 0;
-let expense = 0;
-let investment = 0;
+// ---------- Finance Data ----------
 
-let transactions = [];
-let budget = 0;
+let finance = {
+
+income:0,
+
+expense:0,
+
+investment:0,
+
+budget:0,
+
+goal:0,
+
+transactions:[],
+
+banks:{
+
+PNB:0,
+
+SBI:0,
+
+Cash:0,
+
+UPI:0
+
+}
+
+};
 
 // ---------- Dashboard ----------
 
-const balance = document.getElementById("balance");
-const incomeText = document.getElementById("income");
-const expenseText = document.getElementById("expense");
-const investmentText = document.getElementById("investment");
+const balance =
+document.getElementById("balance");
 
-const history = document.getElementById("history");
+const income =
+document.getElementById("income");
 
-// ---------- Buttons ----------
+const expense =
+document.getElementById("expense");
 
-const fab = document.getElementById("fab");
+const investment =
+document.getElementById("investment");
+
+const bankPNB =
+document.getElementById("bankPNB");
+
+const bankSBI =
+document.getElementById("bankSBI");
+
+const bankCash =
+document.getElementById("bankCash");
+
+// ---------- History ----------
+
+const history =
+document.getElementById("history");
+
+// ---------- Modal ----------
+
+const fab =
+document.getElementById("fab");
 
 const transactionModal =
 document.getElementById("transactionModal");
@@ -34,37 +76,23 @@ document.getElementById("closeTransaction");
 const saveTransaction =
 document.getElementById("saveTransaction");
 
+// ---------- Inputs ----------
+
+const transactionType =
+document.getElementById("transactionType");
+
+const transactionBank =
+document.getElementById("transactionBank");
+
 const amount =
 document.getElementById("amount");
 
 const note =
 document.getElementById("note");
 
-const transactionType =
-document.getElementById("transactionType");
+// ---------- Live Time ----------
 
-// ---------- Update Dashboard ----------
-
-function updateDashboard(){
-
-const total =
-income-expense-investment;
-
-balance.innerHTML="₹"+total;
-
-incomeText.innerHTML="₹"+income;
-
-expenseText.innerHTML="₹"+expense;
-
-investmentText.innerHTML="₹"+investment;
-
-saveLocal();
-
-}
-
-// ---------- Date Time ----------
-
-function updateDateTime(){
+function liveTime(){
 
 const now=new Date();
 
@@ -74,9 +102,42 @@ now.toLocaleString();
 
 }
 
-setInterval(updateDateTime,1000);
+setInterval(liveTime,1000);
 
-updateDateTime();
+liveTime();
+
+// ---------- Dashboard Update ----------
+
+function updateDashboard(){
+
+income.innerHTML="₹"+finance.income;
+
+expense.innerHTML="₹"+finance.expense;
+
+investment.innerHTML="₹"+finance.investment;
+
+const total=
+
+finance.income-
+
+finance.expense-
+
+finance.investment;
+
+balance.innerHTML="₹"+total;
+
+bankPNB.innerHTML=
+"₹"+finance.banks.PNB;
+
+bankSBI.innerHTML=
+"₹"+finance.banks.SBI;
+
+bankCash.innerHTML=
+"₹"+finance.banks.Cash;
+
+saveData();
+
+}
 
 // ---------- Open Modal ----------
 
@@ -96,346 +157,182 @@ amount.value="";
 
 note.value="";
 
-}
-
-// ========================================
-// Echo Finance v3.0
-// Premium Script
+    }
+// ==========================================
+// Echo Finance v4.0
 // Part 2
-// ========================================
+// Transaction + Bank System + Local Storage
+// ==========================================
 
 // ---------- Save Transaction ----------
 
 saveTransaction.onclick = function () {
 
-    const value = Number(amount.value);
+const value = Number(amount.value);
 
-    if (value <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
+if(value<=0){
 
-    const type = transactionType.value;
+alert("Enter Valid Amount");
 
-    const description =
-        note.value.trim() || "No Description";
+return;
 
-    const data = {
+}
 
-        id: Date.now(),
+const type = transactionType.value;
 
-        type: type,
+const bank = transactionBank.value;
 
-        amount: value,
+const description = note.value.trim() || "No Description";
 
-        note: description,
+// Update Finance
 
-        date: new Date().toLocaleString()
+if(type==="income"){
 
-    };
+finance.income+=value;
 
-    transactions.unshift(data);
+finance.banks[bank]+=value;
 
-    if (type === "income") {
+}
 
-        income += value;
+else if(type==="expense"){
 
-    }
+finance.expense+=value;
 
-    else if (type === "expense") {
+finance.banks[bank]-=value;
 
-        expense += value;
+}
 
-    }
+else{
 
-    else {
+finance.investment+=value;
 
-        investment += value;
+finance.banks[bank]-=value;
 
-    }
+}
 
-    renderTransactions();
+// Save Transaction
 
-    updateDashboard();
+finance.transactions.unshift({
 
-    transactionModal.style.display = "none";
+id:Date.now(),
 
-    amount.value = "";
+type:type,
 
-    note.value = "";
+bank:bank,
 
-    showToast("Transaction Added");
+amount:value,
+
+note:description,
+
+date:new Date().toLocaleString()
+
+});
+
+// Refresh
+
+renderHistory();
+
+updateDashboard();
+
+transactionModal.style.display="none";
+
+amount.value="";
+
+note.value="";
+
+showToast("Transaction Saved");
 
 };
 
 // ---------- Transaction History ----------
 
-function renderTransactions() {
+function renderHistory(){
 
-    history.innerHTML = "";
+history.innerHTML="";
 
-    if (transactions.length === 0) {
+if(finance.transactions.length===0){
 
-        history.innerHTML =
-            "<li class='empty'>No Transactions Yet</li>";
+history.innerHTML=`
+<li class="empty">
+No Transactions Yet
+</li>
+`;
 
-        return;
+return;
 
-    }
+}
 
-    transactions.forEach(function (item) {
+finance.transactions.forEach(function(item){
 
-        const li = document.createElement("li");
+history.innerHTML+=`
 
-        li.innerHTML = `
+<li>
+
+<div>
 
 <b>${item.type.toUpperCase()}</b>
 
-<span>₹${item.amount}</span>
+<br>
+
+<small>${item.bank}</small>
 
 <br>
 
 <small>${item.note}</small>
 
-<br>
+</div>
 
-<small>${item.date}</small>
+<div>
+
+₹${item.amount}
+
+</div>
+
+</li>
 
 `;
 
-        history.appendChild(li);
-
-    });
+});
 
 }
 
 // ---------- Local Storage ----------
 
-function saveLocal() {
+function saveData(){
 
-    const finance = {
+localStorage.setItem(
 
-        income,
+"echoFinanceV4",
 
-        expense,
+JSON.stringify(finance)
 
-        investment,
-
-        budget,
-
-        transactions
-
-    };
-
-    localStorage.setItem(
-
-        "echoFinance",
-
-        JSON.stringify(finance)
-
-    );
+);
 
 }
 
-function loadLocal() {
+function loadData(){
 
-    const finance = JSON.parse(
+const data=
 
-        localStorage.getItem("echoFinance")
+localStorage.getItem("echoFinanceV4");
 
-    );
+if(!data)return;
 
-    if (!finance) return;
-
-    income = finance.income || 0;
-
-    expense = finance.expense || 0;
-
-    investment = finance.investment || 0;
-
-    budget = finance.budget || 0;
-
-    transactions = finance.transactions || [];
-
-    updateDashboard();
-
-    renderTransactions();
-
-}
-
-loadLocal();
-
-// ========================================
-// Echo Finance v3.0
-// Premium Script
-// Part 3
-// Reports • Budget • Settings • Manual Edit
-// ========================================
-
-// ---------- Reports ----------
-
-const reportBtn = document.getElementById("reportBtn");
-const reportModal = document.getElementById("reportModal");
-const closeReport = document.getElementById("closeReport");
-
-const reportIncome =
-document.getElementById("reportIncome");
-
-const reportExpense =
-document.getElementById("reportExpense");
-
-const reportInvestment =
-document.getElementById("reportInvestment");
-
-const reportBalance =
-document.getElementById("reportBalance");
-
-reportBtn.onclick = function(){
-
-reportIncome.innerHTML="₹"+income;
-
-reportExpense.innerHTML="₹"+expense;
-
-reportInvestment.innerHTML="₹"+investment;
-
-reportBalance.innerHTML=
-"₹"+(income-expense-investment);
-
-reportModal.style.display="flex";
-
-}
-
-closeReport.onclick=function(){
-
-reportModal.style.display="none";
-
-}
-
-// ---------- Budget ----------
-
-const budgetBtn =
-document.getElementById("budgetBtn");
-
-const budgetModal =
-document.getElementById("budgetModal");
-
-const saveBudget =
-document.getElementById("saveBudget");
-
-const budgetAmount =
-document.getElementById("budgetAmount");
-
-const budgetStatus =
-document.getElementById("budgetStatus");
-
-const closeBudget =
-document.getElementById("closeBudget");
-
-budgetBtn.onclick=function(){
-
-budgetModal.style.display="flex";
-
-}
-
-closeBudget.onclick=function(){
-
-budgetModal.style.display="none";
-
-}
-
-saveBudget.onclick=function(){
-
-budget=Number(budgetAmount.value);
-
-budgetStatus.innerHTML=
-"Monthly Budget : ₹"+budget;
-
-saveLocal();
-
-showToast("Budget Saved");
-
-}
-
-// ---------- Settings ----------
-
-const settingOpen =
-document.getElementById("settingOpen");
-
-const settingsModal =
-document.getElementById("settingsModal");
-
-const closeSettings =
-document.getElementById("closeSettings");
-
-settingOpen.onclick=function(){
-
-settingsModal.style.display="flex";
-
-}
-
-closeSettings.onclick=function(){
-
-settingsModal.style.display="none";
-
-}
-
-// ---------- Manual Finance Edit ----------
-
-const manualEdit =
-document.getElementById("manualEdit");
-
-const manualModal =
-document.getElementById("manualModal");
-
-const saveManual =
-document.getElementById("saveManual");
-
-const closeManual =
-document.getElementById("closeManual");
-
-manualEdit.onclick=function(){
-
-manualModal.style.display="flex";
-
-document.getElementById("manualIncome").value=income;
-
-document.getElementById("manualExpense").value=expense;
-
-document.getElementById("manualInvestment").value=investment;
-
-}
-
-closeManual.onclick=function(){
-
-manualModal.style.display="none";
-
-}
-
-saveManual.onclick=function(){
-
-income=
-Number(document.getElementById("manualIncome").value);
-
-expense=
-Number(document.getElementById("manualExpense").value);
-
-investment=
-Number(document.getElementById("manualInvestment").value);
+finance=JSON.parse(data);
 
 updateDashboard();
 
-manualModal.style.display="none";
-
-showToast("Finance Updated");
+renderHistory();
 
 }
+
+loadData();
 
 // ---------- Toast ----------
 
 function showToast(text){
 
-const toast=
-document.getElementById("toast");
+const toast=document.getElementById("toast");
 
 toast.innerHTML=text;
 
@@ -448,16 +345,430 @@ toast.classList.remove("show");
 },2500);
 
     }
+// ==========================================
+// Echo Finance v4.0
+// Part 3
+// Reports • Budget • Goal • Portfolio
+// ==========================================
 
-// Hide Loading Screen
-window.addEventListener("load", function () {
+// ---------- Reports ----------
 
-    const loading = document.getElementById("loadingScreen");
+const reportBtn = document.getElementById("reportBtn");
+const reportModal = document.getElementById("reportModal");
+const closeReport = document.getElementById("closeReport");
 
-    if (loading) {
-        setTimeout(function () {
-            loading.style.display = "none";
-        }, 1000);
-    }
+if(reportBtn){
+
+reportBtn.onclick=function(){
+
+document.getElementById("reportIncome").innerHTML="₹"+finance.income;
+
+document.getElementById("reportExpense").innerHTML="₹"+finance.expense;
+
+document.getElementById("reportInvestment").innerHTML="₹"+finance.investment;
+
+document.getElementById("reportBalance").innerHTML=
+"₹"+(finance.income-finance.expense-finance.investment);
+
+reportModal.style.display="flex";
+
+}
+
+}
+
+if(closeReport){
+
+closeReport.onclick=function(){
+
+reportModal.style.display="none";
+
+}
+
+}
+
+// ---------- Budget ----------
+
+const budgetBtn=document.getElementById("budgetBtn");
+const budgetModal=document.getElementById("budgetModal");
+
+const budgetAmount=document.getElementById("budgetAmount");
+const budgetStatus=document.getElementById("budgetStatus");
+
+const saveBudget=document.getElementById("saveBudget");
+const closeBudget=document.getElementById("closeBudget");
+
+if(budgetBtn){
+
+budgetBtn.onclick=function(){
+
+budgetModal.style.display="flex";
+
+}
+
+}
+
+if(closeBudget){
+
+closeBudget.onclick=function(){
+
+budgetModal.style.display="none";
+
+}
+
+}
+
+if(saveBudget){
+
+saveBudget.onclick=function(){
+
+finance.budget=Number(budgetAmount.value);
+
+budgetStatus.innerHTML=
+"Monthly Budget : ₹"+finance.budget;
+
+saveData();
+
+showToast("Budget Saved");
+
+}
+
+}
+
+// ---------- Savings Goal ----------
+
+const goalBtn=document.getElementById("goalBtn");
+const goalModal=document.getElementById("goalModal");
+
+const goalAmount=document.getElementById("goalAmount");
+const goalStatus=document.getElementById("goalStatus");
+
+const saveGoal=document.getElementById("saveGoal");
+const closeGoal=document.getElementById("closeGoal");
+
+if(goalBtn){
+
+goalBtn.onclick=function(){
+
+goalModal.style.display="flex";
+
+}
+
+}
+
+if(closeGoal){
+
+closeGoal.onclick=function(){
+
+goalModal.style.display="none";
+
+}
+
+}
+
+if(saveGoal){
+
+saveGoal.onclick=function(){
+
+finance.goal=Number(goalAmount.value);
+
+goalStatus.innerHTML=
+"Target : ₹"+finance.goal;
+
+saveData();
+
+showToast("Goal Saved");
+
+}
+
+}
+
+// ---------- Portfolio ----------
+
+const portfolioBtn=document.getElementById("portfolioBtn");
+const portfolioModal=document.getElementById("portfolioModal");
+const closePortfolio=document.getElementById("closePortfolio");
+
+if(portfolioBtn){
+
+portfolioBtn.onclick=function(){
+
+document.getElementById("portfolioTotal").innerHTML=
+"₹"+finance.investment;
+
+document.getElementById("portfolioProfit").innerHTML=
+"₹0";
+
+document.getElementById("portfolioValue").innerHTML=
+"₹"+finance.investment;
+
+portfolioModal.style.display="flex";
+
+}
+
+}
+
+if(closePortfolio){
+
+closePortfolio.onclick=function(){
+
+portfolioModal.style.display="none";
+
+}
+
+}
+// ==========================================
+// Echo Finance v4.0
+// Part 4 (FINAL)
+// Theme • Search • Loading • Clear History
+// ==========================================
+
+// ---------- Dark / Light Mode ----------
+
+const themeToggle = document.getElementById("themeToggle");
+
+if (themeToggle) {
+
+themeToggle.onclick = function () {
+
+document.body.classList.toggle("light");
+
+localStorage.setItem(
+"echoTheme",
+document.body.classList.contains("light")
+? "light"
+: "dark"
+);
+
+showToast("Theme Changed");
+
+};
+
+}
+
+if(localStorage.getItem("echoTheme")=="light"){
+
+document.body.classList.add("light");
+
+}
+
+// ---------- Search Transaction ----------
+
+const searchOpen =
+document.getElementById("searchOpen");
+
+const searchModal =
+document.getElementById("searchModal");
+
+const closeSearch =
+document.getElementById("closeSearch");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const searchResult =
+document.getElementById("searchResult");
+
+if(searchOpen){
+
+searchOpen.onclick=function(){
+
+searchModal.style.display="flex";
+
+searchInput.value="";
+
+searchResult.innerHTML="";
+
+};
+
+}
+
+if(closeSearch){
+
+closeSearch.onclick=function(){
+
+searchModal.style.display="none";
+
+};
+
+}
+
+if(searchInput){
+
+searchInput.onkeyup=function(){
+
+const keyword=this.value.toLowerCase();
+
+searchResult.innerHTML="";
+
+finance.transactions
+.filter(item=>
+
+item.note.toLowerCase().includes(keyword) ||
+
+item.bank.toLowerCase().includes(keyword) ||
+
+item.type.toLowerCase().includes(keyword)
+
+)
+
+.forEach(item=>{
+
+searchResult.innerHTML+=`
+
+<li>
+
+<b>${item.type.toUpperCase()}</b>
+
+<br>
+
+${item.bank}
+
+<br>
+
+₹${item.amount}
+
+<br>
+
+<small>${item.note}</small>
+
+</li>
+
+`;
 
 });
+
+};
+
+}
+
+// ---------- Clear History ----------
+
+const clearHistory =
+document.getElementById("clearHistory");
+
+if(clearHistory){
+
+clearHistory.onclick=function(){
+
+if(confirm("Clear all transactions?")){
+
+finance.transactions=[];
+
+finance.income=0;
+
+finance.expense=0;
+
+finance.investment=0;
+
+finance.banks.PNB=0;
+
+finance.banks.SBI=0;
+
+finance.banks.Cash=0;
+
+finance.banks.UPI=0;
+
+renderHistory();
+
+updateDashboard();
+
+showToast("History Cleared");
+
+}
+
+};
+
+}
+
+// ---------- Loading Screen ----------
+
+window.addEventListener("load",function(){
+
+const loading=
+
+document.getElementById("loadingScreen");
+
+if(loading){
+
+setTimeout(function(){
+
+loading.style.display="none";
+
+},1200);
+
+}
+
+});
+
+// ---------- Chart ----------
+
+const chartCanvas =
+document.getElementById("financeChart");
+
+if(chartCanvas){
+
+new Chart(chartCanvas,{
+
+type:"doughnut",
+
+data:{
+
+labels:["Income","Expense","Investment"],
+
+datasets:[{
+
+data:[
+
+finance.income,
+
+finance.expense,
+
+finance.investment
+
+],
+
+backgroundColor:[
+
+"#22c55e",
+
+"#ef4444",
+
+"#3b82f6"
+
+]
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+
+color:"#ffffff"
+
+}
+
+}
+
+}
+
+}
+
+});
+
+}
+
+// ---------- Finish ----------
+
+renderHistory();
+
+updateDashboard();
+
+console.log("Echo Finance v4.0 Loaded Successfully");
