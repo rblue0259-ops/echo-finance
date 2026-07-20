@@ -717,15 +717,11 @@ labels:["Income","Expense","Investment"],
 
 datasets:[{
 
-data:[
-
-finance.income,
-
-finance.expense,
-
-finance.investment
-
-],
+data: [
+    income,
+    expense,
+    investment
+]
 
 backgroundColor:[
 
@@ -767,7 +763,7 @@ color:"#ffffff"
 
 // ---------- Finish ----------
 
-renderHistory();
+renderTransactions();
 
 updateDashboard();
 
