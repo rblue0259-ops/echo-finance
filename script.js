@@ -721,16 +721,12 @@ data: [
     income,
     expense,
     investment
-]
+],
 
-backgroundColor:[
-
-"#22c55e",
-
-"#ef4444",
-
-"#3b82f6"
-
+backgroundColor: [
+    "#22c55e",
+    "#ef4444",
+    "#3b82f6"
 ]
 
 }]
